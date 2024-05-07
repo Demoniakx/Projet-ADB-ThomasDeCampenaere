@@ -24,17 +24,21 @@ function insertData($email,$username,$lastname,$firstname,$pwd){
     $stmtUser->bindParam(":pwd",$pwd);
     $stmtUser->BindParam(":date_create,",$date_create);
 
-    //Execution de la requête SQL
+    //Execution de la requête SQL et génération du message d'erreur s'il y en a une.
     try{
         $stmtUser->execute();
     }catch(PDOException $e){
         $message = "Une erreur s'est produite lors de l'insertion des données dans la BDD.";
     }
+    //On retourne le message d'erreur si celui-ci a été généré.
+    if(isset($message)){return $message;}
 
 }
+
+
 
 //Fonction qui permet de  se déconnecter et supprimer les données de la session.
 function logout(){
     session_destroy();
-} 
+}
 ?>
