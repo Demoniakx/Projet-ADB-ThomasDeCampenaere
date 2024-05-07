@@ -120,3 +120,8 @@ header{
     text-decoration: none;
     color: #F2F5FA;
 }
+
+.big{
+    height: 19.25rem;
+    width: 19.25rem;
+}

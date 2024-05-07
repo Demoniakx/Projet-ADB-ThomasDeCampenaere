@@ -7,17 +7,19 @@
         </div>
         <div class="top">
             <div>
-                <h1>Connexion</h1>
+                <h1>Mot de passe oublié</h1>
             </div>
             <div class="form">
                 <form>
-                    <label>Username :</label></br>
-                    <input class="formulaire" type="text" name="username" required autofocus><br>
-                    <label>Mot de passe :</label></br>
+                    <label>Résolvez ce calcul :</label></br>
+                    <input class="formulaire" type="text" name="calcul" placeholder="<?php echo rand(1,20). "+" .rand(1,20) ?>" required autofocus><br>
+                    <label>Nouveau mot de passe :</label></br>
+                    <input class="formulaire" type="password" name="pwd" required><br>
+                    <label>Confirmez le mot de passe :</label></br>
                     <input class="formulaire" type="password" name="pwd" required><br>
                     <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>
                     <a href="pinscription.php">Pas encore inscrit ?</a><br>  
-                    <input type="submit" class="button" name="bConnexion" value="Connexion"></input>
+                    <input type="submit" class="button" name="bModifypwd" value="Modifier"></input>
                 </form>
             </div>
         </div>

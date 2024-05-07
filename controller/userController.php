@@ -1,0 +1,3 @@
+<?php
+    require('userModel.php');
+?>
