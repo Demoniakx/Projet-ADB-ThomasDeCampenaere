@@ -14,7 +14,7 @@
                     <label>Username :</label></br>
                     <input class="formulaire" type="text" name="username" required autofocus><br>
                     <label>Mot de passe :</label></br>
-                    <input class="formulaire" type="password" name="pwd" required><br>
+                    <input class="formulaire" type="password" name="password" required><br>
                     <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>
                     <a href="pinscription.php">Pas encore inscrit ?</a><br>  
                     <input type="submit" class="button" name="bConnexion" value="Connexion"></input>

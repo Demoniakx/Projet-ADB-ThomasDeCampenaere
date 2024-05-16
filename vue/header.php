@@ -16,7 +16,16 @@
                 <ul class="liste">
                     <li><a href="paccueil.php">Accueil</a></li>
                     <li><a href="pajoutrecette.php">Ajouter une recette</a></li>
-                    <li><a href="pconnexion.php">Connexion</a></li>
+                    <?php
+                        if(!isset($_SESSION)){
+                            ?>
+                            <li><a href="pconnexion.php">Connexion</a></li>
+                            <?php 
+                        }else{
+                            ?>
+                            <li><a href="?action=deconnect">Déconnexion</a></li>
+                        <?php }
+                    ?>
                     <li><a href="pmodificationdonnéesuser.php">Espace utilisateur</a></li>
                 </ul>
             </nav>

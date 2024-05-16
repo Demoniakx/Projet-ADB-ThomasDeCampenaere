@@ -8,6 +8,11 @@
         <div class="top">
             <div>
                 <h1>Inscription</h1>
+                <!-- Si un message d'erreur ou de confirmation est envoyé par le controller -->
+                <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?>
+                <?php if(isset($_GET['error'])){ 
+                ?> <p>Une erreur s'est produite</p>
+                <?php }  ?>
             </div>
             <div class="form">
                 <form>
