@@ -58,11 +58,11 @@ if(isset($_POST['bInscription'])){
             // On récupère les données de l'utilisateur grâce a la fonction login (qui permet de créer une session avec les données utilisateur)
             login($username, $password);
             // On redirige vers l'accueil avec un message de réussite
-            header("Location: ../vue/paccueil.php?success");
+            header("Location: ../vue/pmodificationdonneesuser.php?success");
             exit;
         } else {
             //On redirige vers l'inscription avec un message d'erreur
-            header("Location: ../vue/pinscription.php?error");
+            header("Location: ../vue/pmodificationdonneesuser.php?error");
             exit;
         }
     }
