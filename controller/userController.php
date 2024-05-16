@@ -47,8 +47,26 @@ if(isset($_POST['bInscription'])){
     }
 //Si le bouton modifier a été envoyé
 }elseif(isset($_POST['bModifyuser'])){
+    $id = $_SESSION['user']['ID'];
+    $password = $_SESSION['user']['password']
+    if(!empty($email) && !empty($lastname) && !empty($firstname)){
+        if (update($email, $lastname, $firstname)) {
+            // On détruit l'ancienne session
+            session_destroy();
+            // On démarre une session 
+            session_start();
+            // On récupère les données de l'utilisateur grâce a la fonction login (qui permet de créer une session avec les données utilisateur)
+            login($username, $password);
+            // On redirige vers l'accueil avec un message de réussite
+            header("Location: ../vue/paccueil.php?success");
+            exit;
+        } else {
+            //On redirige vers l'inscription avec un message d'erreur
+            header("Location: ../vue/pinscription.php?error");
+            exit;
+        }
+    }
 
-        if(!empty($email) && !empty($lastname))
 } else if (isset($_POST['bConnexion'])) {
     //On récupère le login et le mdp
     $username = htmlspecialchars(strtolower(trim($_POST['login'])));
