@@ -39,7 +39,7 @@ if(isset($_POST['bInscription'])){
                     header("Location: ../vue/pinscription.php?message=" . $message);
                     exit;
                 }
-                //On redirige et transmet à l'utilisateur la réussite de l'inscription
+                //On redirige l'utilisateur vers la page de connexion et transmet à l'utilisateur la réussite de l'inscription
                 header("Location: ../vue/pconnexion.php?success");
                 exit;
             }
