@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require('../model/userModel.php');
+    include('../model/userModel.php');
 
 //si le bouton inscription a été envoyé.
 if(isset($_POST['bInscription'])){
@@ -21,10 +21,10 @@ if(isset($_POST['bInscription'])){
             
             //si le mot de passe de passe n'est pas vide lors de l'inscription et que l'adresse mail a un format valide
             if(!empty($password) && isset($_POST['bInscription'])){
-                $password_hash = password_hash($password, PASSWORD_DEFAULT);
+                $password = password_hash($password, PASSWORD_DEFAULT);
                 //vérification d'une addresse mail au format valide
                 if(!preg_match($masque, $email)){
-                    $errormail = "L'adresse email '$email' n'est pas valide."
+                    $errormail = "L'adresse email '$email' n'est pas valide.";
                 }
                 //Si l'adresse mail n'est pas valide
                 if (isset($errormail)) {
@@ -33,7 +33,7 @@ if(isset($_POST['bInscription'])){
                     exit;
                 }
                 // On transmet à la fonction "insertdata" les données à introduire en base de données, si l'inscription a rencontré un problème, on envoi un message a l'utilisateur
-                $message = insertData($email, $username, $lastname, $firstname, $password_hash, $date_create);
+                $message = insertData($email, $username, $lastname, $firstname, $password, $date_create);
                 if (isset($message)) {
                     //On transmet le message par l'url avec la redirection
                     header("Location: ../vue/pinscription.php?message=" . $message);
@@ -48,9 +48,9 @@ if(isset($_POST['bInscription'])){
 //Si le bouton modifier a été envoyé
 }elseif(isset($_POST['bModifyuser'])){
     $id = $_SESSION['user']['ID'];
-    $password = $_SESSION['user']['password']
+    $password = $_SESSION['user']['password'];
     if(!empty($email) && !empty($lastname) && !empty($firstname)){
-        if (update($email, $lastname, $firstname)) {
+        if (update($id, $email, $username, $lastname, $firstname)){
             // On détruit l'ancienne session
             session_destroy();
             // On démarre une session 
@@ -70,7 +70,7 @@ if(isset($_POST['bInscription'])){
 } else if (isset($_POST['bConnexion'])) {
     //On récupère le login et le mdp
     $username = htmlspecialchars(strtolower(trim($_POST['login'])));
-    $password = password_hash(htmlspecialchars(trim($_POST['password'])));
+    $password = password_hash(htmlspecialchars(trim($_POST['password'])), PASSWORD_DEFAULT);
     // On appelle la fonction login
     login($username, $password);
     // On le redirige vers l'accueil
@@ -97,12 +97,13 @@ if(isset($_POST['bAddrecipe'])){
     $cookingtools = htmlspecialchars(trim($_POST['cookingtools']));
     $ingredients = htmlspecialchars(trim($_POST['ingredients']));
     $person = htmlspecialchars(trim($_POST['person']));
+    $recipe = htmlspecialchars(trim($_POST['recipe']));
     $author = $_SESSION['users']['username'];
     $idUser = $_SESSION['users']['id'];
     $date_create = date('d-m-y');
 
     if(!empty($title) && !empty($cookingtools) && !empty($ingredients) && !empty($person)){
-        $message = InsertRecipe($title, $cookingtools, $ingredients, $person, $author, $idUser, $date_create)
+        $message = InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $author, $idUser, $date_create);
         //vérification s'il y a un message d'erreur
         if(isset($message)){
             //On transmet le message par l'url avec la redirection
@@ -114,7 +115,7 @@ if(isset($_POST['bAddrecipe'])){
     }
 
 } else if(isset($_POST['bModifierrecette'])){
-    $message = Modifyrecipe($title, $cookingtools, $ingredients, $person, $author);
+    $message = Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $author);
     //vérification s'il y a un message d'erreur
     if(isset($message)){
     //On transmet le message par l'url avec la redirection

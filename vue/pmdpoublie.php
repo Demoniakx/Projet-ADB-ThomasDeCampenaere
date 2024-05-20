@@ -1,4 +1,5 @@
 <?php
+    $onglet = 'Mot de passe oublié';
     include('header.php');
 ?>
     <div class="container">

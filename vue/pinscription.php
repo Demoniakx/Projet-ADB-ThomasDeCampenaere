@@ -1,4 +1,5 @@
 <?php
+    $onglet = 'Inscription';
     include('header.php');
 ?>
     <div class="container">
@@ -15,7 +16,7 @@
                 <?php }  ?>
             </div>
             <div class="form">
-                <form>
+                <form method='POST' action="../controller/userController.php">
                     <label>Email :</label></br>
                     <input class="formulaire" type="email" name="email" placeholder="Ex: abced@hotmail.com" autofocus required><br>
                     <label>Username :</label></br>
@@ -25,7 +26,7 @@
                     <label>Prénom :</label></br>
                     <input class="formulaire" type="text" name="firstname" required><br>
                     <label>Mot de passe :</label></br>
-                    <input class="formulaire" type="password" name="pwd" required><br>
+                    <input class="formulaire" type="password" name="pwd" required min="8"><br>
                     <label>Confirmez le mot de passe :</label></br>
                     <input class="formulaire" type="password" name="pwdconfirmed" required><br>
                     <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>

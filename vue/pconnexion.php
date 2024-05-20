@@ -1,4 +1,5 @@
 <?php
+    $onglet = 'Connexion';
     include('header.php');
 ?>
     <div class="container">
@@ -10,7 +11,7 @@
                 <h1>Connexion</h1>
             </div>
             <div class="form">
-                <form>
+                <form method="POST" action="../controller/userController.php">
                     <label>Username :</label></br>
                     <input class="formulaire" type="text" name="username" required autofocus><br>
                     <label>Mot de passe :</label></br>

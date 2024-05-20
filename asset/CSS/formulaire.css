@@ -35,6 +35,8 @@ section{
     border-radius: 60px;
     border: 1px solid #000000;
     width: 20rem;
+    height: 2rem;
+    padding: 0 1rem;
 }
 
 .button{
@@ -46,6 +48,7 @@ section{
     display: inline-block;
     width: 8rem;
     text-align: center;
+    height: 2rem;
 }
 
 .button:hover{
@@ -85,10 +88,6 @@ section{
     align-items: center;
 }
 
-.form input{
-    height: 2rem;
-    padding: 0 1rem;
-}
 
 .top{
     position: absolute;
@@ -123,5 +122,11 @@ header{
 
 .big{
     height: 19.25rem;
-    width: 19.25rem;
+    width: 20rem;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
+
+.small{
+    padding: 0rem 1rem;
 }

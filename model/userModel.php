@@ -4,7 +4,7 @@ L'ensemble des fonctions se trouvera dans ce fichier "userModel"
 */
 
 //On appel le fichier pour se connecter a la base de données.
-include($_SERVER['DOCUMENT_ROOT']."/ADB/Projet Blog culinaire/model/dbconnect.php");
+include("../model/dbconnect.php");
 
 //Fonction insertion de données user
 function insertData($email,$username,$lastname,$firstname,$password,$date_create){
@@ -13,14 +13,15 @@ function insertData($email,$username,$lastname,$firstname,$password,$date_create
     $role = 0;
     
     //On récupère la requête pour l'insertion des données personnelles du user.
-    $querysql = "INSERT INTO users (email,username,lastname,firstname,password,date_create";
+    $querysql = "INSERT INTO users (email,username,lastname,firstname,password,role,date_create) VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":email",$email);
     $stmtUser->bindParam(":username",$username);
     $stmtUser->bindParam(":lastname",$lastname);
     $stmtUser->bindParam(":firstname",$firstname);
-    $stmtUser->bindParam(":password",$password_hash);
+    $stmtUser->bindParam(":password",$password);
+    $stmtUser->bindParam(":role",$role);
     $stmtUser->BindParam(":date_create,",$date_create);
 
     //Execution de la requête SQL et génération du message d'erreur s'il y en a une.
@@ -46,7 +47,7 @@ function login($username,$password){
 
     try{
         $stmtUser->execute();
-    }catch(PDOExceptio $e){
+    }catch(PDOException $e){
         $message = "Erreur lors de la connexion";
     }
 
@@ -55,6 +56,16 @@ function login($username,$password){
 
     //On stocke le tableau dans une session
     $_SESSION['user'] = $user;
+
+    $sqldatelog = "UPDATE users Set date_log = NOW() WHERE :id = id";
+    $stmtUser = $bdd->prepare($sqldatelog);
+    $stmtUser->bindparam(":id",$_SESSION['user']['id']);
+
+    try{
+        $stmtUser->execute();
+    }catch(PDOException $e){
+        $message = "Erreur lors de la mise a jour de la date de connection";
+    }
 }
 
 //Fonction update qui permet de mettre à jour les données en base de données
@@ -73,14 +84,11 @@ function update($id,$email,$username,$lastname,$firstname){
     try{
         $stmtUserUpdate->execute();
     }catch(PDOException $e){
-        $message = "Erreur lors de la modification des données"
+        $message = "Erreur lors de la modification des données";
     }
 
     //Si la variable message n'existe pas, tout s'est bien déroulé
-    if(!isset($message)){
-        return true;
-    }
-    return false;
+
 }
 
 //La fonction suppression de compte utilisateur
@@ -104,19 +112,19 @@ function logout(){
 //Fonction qui permet d'insérer un recette en BDD
 function InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $author, $idUser, $date_create){
     //Récupération de la BDD avec le variable globale
-    global $bdd
+    global $bdd;
     //On récupère la requête pour l'insertion des données de la recette
-    $querysql = "INSERT INTO recipe (title,cookingtools,ingredients,person,recipe,author,idUser,date_create";
+    $querysql = "INSERT INTO recipe (title,cookingtools,ingredients,person,recipe,author,idUser,date_create) VALUES (:title, :cookingtools, :ingredients, :person, :recipe, :author, :idUser, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
-    $stmtUser->bindParam("title",$title);
+    $stmtUser->bindParam(":title",$title);
     $stmtUser->bindParam(":cookingtools",$cookingtools);
     $stmtUser->bindParam(":ingredients",$ingredients);
     $stmtUser->bindParam(":person",$person);
     $stmtUser->bindParam(":recipe",$recipe);
     $stmtUser->bindParam(":author",$author);
     $stmtUser->bindParam(":idUser",$idUser);
-    $stmtUser->BindParam(":date_create,",$date_create);
+    $stmtUser->BindParam(":date_create",$date_create);
 
     //Execution de la requête SQL et génération du message d'erreur s'il y en a une.
     try{

@@ -1,4 +1,5 @@
 <?php
+    $onglet = 'Contact';
     include('header.php');
 ?>
     <div class="container">
