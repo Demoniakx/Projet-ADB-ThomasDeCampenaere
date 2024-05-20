@@ -46,8 +46,12 @@ if(isset($_POST['bInscription'])){
 elseif(isset($_POST['bModifyuser'])){
     $id = $_SESSION['user']['ID'];
     $password = $_SESSION['user']['password'];
+    $username = $_SESSION['user']['username'];
+    $email = htmlspecialchars(trim($_POST['mail']));
+    $lastname = htmlspecialchars(trim($_POST['lastname']));
+    $firstname = htmlspecialchars(trim($_POST['firstname']));
     if(!empty($email) && !empty($lastname) && !empty($firstname)){
-        if (update($id, $email, $username, $lastname, $firstname)){
+        if (update($id, $email, $lastname, $firstname)){
             // On détruit l'ancienne session
             session_destroy();
             // On démarre une session 

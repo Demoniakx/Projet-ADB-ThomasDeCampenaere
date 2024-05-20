@@ -14,7 +14,7 @@ function insertData($email,$username,$lastname,$firstname,$password){
     $date_create = date('d-m-y');
     
     //On récupère la requête pour l'insertion des données personnelles du user.
-    $querysql = "INSERT INTO users VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
+    $querysql = "INSERT INTO users VALUES (0, :email, :username, :lastname, :firstname, :password, :role, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":email",$email);
@@ -71,7 +71,7 @@ function login($username,$password){
 }
 
 //Fonction update qui permet de mettre à jour les données en base de données
-function update($id,$email,$username,$lastname,$firstname){
+function update($id,$email,$lastname,$firstname){
     //Récupération de la BDD
     global $bdd;
     //On prépare la requête qui permettra de modifier les informations de l'utilisateurs
