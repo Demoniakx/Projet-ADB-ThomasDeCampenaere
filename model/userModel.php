@@ -14,7 +14,7 @@ function insertData($email,$username,$lastname,$firstname,$password){
     $date_create = date('d-m-y');
     
     //On récupère la requête pour l'insertion des données personnelles du user.
-    $querysql = "INSERT INTO users VALUES (0, :email, :username, :lastname, :firstname, :password, :role, :date_create)";
+    $querysql = "INSERT INTO users (email, username, lastname, firstname, password, role, date_create VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":email",$email);
