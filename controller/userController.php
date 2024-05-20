@@ -23,7 +23,7 @@ if(isset($_POST['bInscription'])){
             if(!empty($password) && isset($_POST['bInscription'])){
                 $password = password_hash($password, PASSWORD_DEFAULT);
                 //vérification d'une addresse mail au format valide
-                if(!preg_match($masque, $email)){
+                if(!preg_match($regexemail, $email)){
                     $errormail = "L'adresse email '$email' n'est pas valide.";
                 }
                 //Si l'adresse mail n'est pas valide
@@ -33,7 +33,7 @@ if(isset($_POST['bInscription'])){
                     exit;
                 }
                 // On transmet à la fonction "insertdata" les données à introduire en base de données, si l'inscription a rencontré un problème, on envoi un message a l'utilisateur
-                $message = insertData($email, $username, $lastname, $firstname, $password, $date_create);
+                $message = insertData($email, $username, $lastname, $firstname, $password,$role, $date_create);
                 if (isset($message)) {
                     //On transmet le message par l'url avec la redirection
                     header("Location: ../vue/pinscription.php?message=" . $message);

@@ -14,6 +14,8 @@
                 <form>
                     <label>Résolvez ce calcul :</label></br>
                     <input class="formulaire" type="text" name="calcul" placeholder="<?php echo rand(1,20). "+" .rand(1,20) ?>" required autofocus><br>
+                    <label>Username :</label></br>
+                    <input class="formulaire" type="text" name="usernamer" required><br>
                     <label>Nouveau mot de passe :</label></br>
                     <input class="formulaire" type="password" name="pwd" required><br>
                     <label>Confirmez le mot de passe :</label></br>
