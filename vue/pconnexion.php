@@ -13,7 +13,7 @@
             <div class="form">
                 <form method="POST" action="../controller/userController.php">
                     <label>Username :</label></br>
-                    <input class="formulaire" type="text" name="username" required autofocus><br>
+                    <input class="formulaire" type="text" name="login" required autofocus><br>
                     <label>Mot de passe :</label></br>
                     <input class="formulaire" type="password" name="password" required><br>
                     <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>

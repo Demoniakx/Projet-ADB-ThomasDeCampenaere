@@ -10,7 +10,6 @@ if(isset($_POST['bInscription'])){
     $firstname = htmlspecialchars(trim($_POST['firstname']));
     $password = htmlspecialchars(trim($_POST['pwd']));
     $confirmedpassword = htmlspecialchars(trim($_POST['pwdconfirmed']));
-    $date_create = date('d-m-y');
     $regexemail = "/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/";
 
     //si les données récupérées ne sont pas vides
@@ -20,33 +19,31 @@ if(isset($_POST['bInscription'])){
         if($password === $confirmedpassword){
             
             //si le mot de passe de passe n'est pas vide lors de l'inscription et que l'adresse mail a un format valide
-            if(!empty($password) && isset($_POST['bInscription'])){
-                $password = password_hash($password, PASSWORD_DEFAULT);
-                //vérification d'une addresse mail au format valide
-                if(!preg_match($regexemail, $email)){
-                    $errormail = "L'adresse email '$email' n'est pas valide.";
-                }
-                //Si l'adresse mail n'est pas valide
-                if (isset($errormail)) {
-                    //On transmet le message par l'url avec la redirection
-                    header("Location: ../vue/pinscription.php?message=" . $errormail);
-                    exit;
-                }
-                // On transmet à la fonction "insertdata" les données à introduire en base de données, si l'inscription a rencontré un problème, on envoi un message a l'utilisateur
-                $message = insertData($email, $username, $lastname, $firstname, $password,$role, $date_create);
-                if (isset($message)) {
-                    //On transmet le message par l'url avec la redirection
-                    header("Location: ../vue/pinscription.php?message=" . $message);
-                    exit;
-                }
-                //On redirige l'utilisateur vers la page de connexion et transmet à l'utilisateur la réussite de l'inscription
-                header("Location: ../vue/pconnexion.php?success");
+            if(!preg_match($regexemail, $email)){
+            $errormail = "L'adresse email '$email' n'est pas valide.";
+            }
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            //Si l'adresse mail n'est pas valide
+            if (isset($errormail)){
+                //On transmet le message par l'url avec la redirection
+                header("Location: ../vue/pinscription.php?message=" . $errormail);
                 exit;
             }
+            // On transmet à la fonction "insertdata" les données à introduire en base de données, si l'inscription a rencontré un problème, on envoi un message a l'utilisateur
+            $message = insertData($email, $username, $lastname, $firstname, $password);
+            if (isset($message)){
+                //On transmet le message par l'url avec la redirection
+                header("Location: ../vue/pinscription.php?message=" . $message);
+                exit;
+            }
+            //On redirige l'utilisateur vers la page de connexion et transmet à l'utilisateur la réussite de l'inscription
+            header("Location: ../vue/pconnexion.php?success");
+            exit;
         }
     }
+}
 //Si le bouton modifier a été envoyé
-}elseif(isset($_POST['bModifyuser'])){
+elseif(isset($_POST['bModifyuser'])){
     $id = $_SESSION['user']['ID'];
     $password = $_SESSION['user']['password'];
     if(!empty($email) && !empty($lastname) && !empty($firstname)){
@@ -72,10 +69,16 @@ if(isset($_POST['bInscription'])){
     $username = htmlspecialchars(strtolower(trim($_POST['login'])));
     $password = password_hash(htmlspecialchars(trim($_POST['password'])), PASSWORD_DEFAULT);
     // On appelle la fonction login
-    login($username, $password);
+    $message = login($username, $password);
     // On le redirige vers l'accueil
-    header("Location: ../vue/paccueil.php");
-    exit;
+    if(isset($message)){
+        header("Location: ../vue/pconnexion.php?message=" . $message);
+        exit;
+    }else{
+        header("Location: ../vue/paccueil.php");
+        exit;
+    }
+
 } else if (isset($_POST['bDeconnect'])) {
     //On appelle la fonction déconnexion qui
     logout();

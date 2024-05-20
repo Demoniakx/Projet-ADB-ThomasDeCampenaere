@@ -7,13 +7,14 @@ L'ensemble des fonctions se trouvera dans ce fichier "userModel"
 include("../model/dbconnect.php");
 
 //Fonction insertion de données user
-function insertData($email,$username,$lastname,$firstname,$password,$date_create){
+function insertData($email,$username,$lastname,$firstname,$password){
     //Récupération de la BDD avec le variable globale
     global $bdd;
     $role = 0;
+    $date_create = date('d-m-y');
     
     //On récupère la requête pour l'insertion des données personnelles du user.
-    $querysql = "INSERT INTO users (email,username,lastname,firstname,password,role,date_create) VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
+    $querysql = "INSERT INTO users VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":email",$email);
@@ -50,6 +51,7 @@ function login($username,$password){
     }catch(PDOException $e){
         $message = "Erreur lors de la connexion";
     }
+    if(isset($message)){return $message;}
 
     //On récupère les données de la BDD dans un tableau
     $user = $stmtUser->fetch();

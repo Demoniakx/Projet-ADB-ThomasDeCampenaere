@@ -15,7 +15,18 @@
             <nav>
                 <ul class="liste">
                     <li><a href="paccueil.php">Accueil</a></li>
-                    <li><a href="pajoutrecette.php">Ajouter une recette</a></li>
+                    <?php
+                        if(!isset($_SESSION)){
+
+                    ?>
+                            <li><a href="pinscription.php">Ajouter une recette</a></li>
+                    <?php
+                       }else{
+                        ?>
+                            <li><a href="pajoutrecette.php">Ajouter une recette</a></li>
+                        <?php    }
+                    ?>
+
                     <?php
                         if(!isset($_SESSION)){
                             ?>
