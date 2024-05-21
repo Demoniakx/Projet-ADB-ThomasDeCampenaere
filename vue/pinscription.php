@@ -1,6 +1,9 @@
 <?php
     $onglet = 'Inscription';
     include('header.php');
+    if(isset($_SESSION['user'])){
+        header("Location: paccueil.php");
+    }else{
 ?>
     <div class="container">
         <div>
@@ -38,6 +41,6 @@
  
     </div>
 
-<?php
+<?php   }
     include('footer.php');
 ?>

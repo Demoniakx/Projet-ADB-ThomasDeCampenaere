@@ -147,5 +147,19 @@ if(isset($_POST['bAddrecipe'])){
     exit;
 } else if(isset($_POST['bSupprimerrecette'])){
     $message = Deleterecipe($recipeid);
+}else if(isset($_POST['bModifypwd'])){
+    $nb1 = $_SESSION['calcul']['1'];
+    $nb2 = $_SESSION['calcul']['2'];
+    $resultat = htmlspecialchars(trim($_POST['resultat']));
+    $username = htmlspecialchars(trim($_POST['username']));
+    $password = htmlspecialchars(trim($_POST['newpassword']));
+    $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword']));   
+    if(!empty($password) && !empty($confirmedpassword)){
+        if($resultat == ($nb1 + $nb2)){
+            $message = pwdforget($username, $password);
+        }
+    }else{
+        $error["empty"] = "Veuillez remplir tous les mots de passe.";
+        header("Location: ../vue/pmdpoublie.php?message=" . $error['empty']);}
 }
 ?>

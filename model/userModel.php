@@ -127,7 +127,7 @@ function InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
     //Récupération de la BDD avec le variable globale
     global $bdd;
     //On récupère la requête pour l'insertion des données de la recette
-    $querysql = "INSERT INTO recipes (title,cookingtools,ingredients,person,recipe,author,idUser,date_create) VALUES (:title, :cookingtools, :ingredients, :person, :recipe, :author, :user_id, :date_create)";
+    $querysql = "INSERT INTO recipes (title,cookingtools,ingredients,person,recipe,author,user_id,date_create) VALUES (:title, :cookingtools, :ingredients, :person, :recipe, :author, :user_id, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":title",$title);
@@ -155,7 +155,7 @@ function Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
     //Récupération de la BDD
     global $bdd;
     //On prépare la requête qui permettra de modifier les informations de l'utilisateurs
-    $querysqlupdate = "UPDATE recipe SET";
+    $querysqlupdate = "UPDATE recipe SET title=:title, cookingtools=:cookingtools, ingredients=:ingredients, person=:person, recipe=:recipe, author=:author WHERE id = :id";
     //Préparation de la requête SQL
     $stmtUserUpdate = $bdd->prepare($querysqlupdate);
     $stmtUserUpdate->bindParam(":title",$title);
@@ -189,5 +189,28 @@ function Deleterecipe($recipeid){
     $stmtUser->execute();
 
     return true;
+}
+
+//Function qui gérera le calcul et la modification du mot de passe si le user a oublié son mot de passe
+function pwdforget($username,$password){
+    //Récupération de la BDD
+    global $bdd;
+    //On récupère la requête pour modifier le mot de passe ou le nom d'utilisateur est le même en BDD
+    $querysql = "UPDATE users SET password = :password WHERE username = :username";
+    $stmtUser = $bdd->prepare($querysql);
+    $stmtUser->bindParam(":username",$username);
+    $stmtUser->bindParam(":password",$password);
+
+    try{
+        $stmtUser->execute();
+    }catch(PDOException $e){
+        $message = "Erreur lors de la modification du mot de passe";
+    }
+
+    //Si la variable message n'existe pas, tout s'est bien déroulé
+    if(!isset($message)){
+        return true;
+    }
+    return false;
 }
 ?>

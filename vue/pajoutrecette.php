@@ -1,14 +1,17 @@
 <?php
     $onglet = 'Ajout recette';
     include('header.php');
-?>
+    if(!isset($_SESSION['user'])){
+        header("Location: pconnexion.php");
+    }else{
+    ?>
     <div class="container">
         <div>
             <img class="image" src="../asset/Image/Thomas-cooking_1.svg" alt="">
         </div>
         <div class="top">
             <div>
-                <h1>Ajouter une recette</h1>
+                <h1>Recette</h1>
             </div>
             <div class="form">
                 <form method="POST" action="../controller/userController.php">
@@ -29,6 +32,6 @@
  
     </div>
 
-<?php
+<?php   }
     include('footer.php');
 ?>

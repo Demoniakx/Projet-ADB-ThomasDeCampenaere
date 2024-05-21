@@ -40,7 +40,7 @@
                         if(isset($_SESSION['user'])){
                             if($_SESSION['user']['role'] == '1'){
                                 ?>
-                                <li><a href="padmin.php">Admin</a></li>
+                                <li><a href="padmin.php">Espace administrateur</a></li>
                                 <?php
                             }elseif($_SESSION['user']['role'] == "0"){
                                 ?>

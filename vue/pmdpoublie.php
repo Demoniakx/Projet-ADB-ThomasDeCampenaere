@@ -1,6 +1,11 @@
 <?php
     $onglet = 'Mot de passe oublié';
     include('header.php');
+    $_SESSION['calcul'] = rand(1,20);
+    $_SESSION['calcul'] = rand(1,20);
+    if(isset($_SESSION['user'])){
+        header("Location: paccueil.php");
+    }else{
 ?>
     <div class="container">
         <div>
@@ -11,15 +16,15 @@
                 <h1>Mot de passe oublié</h1>
             </div>
             <div class="form">
-                <form>
+                <form method="post" action="../controller/userController.php">
                     <label>Résolvez ce calcul :</label></br>
-                    <input class="formulaire" type="text" name="calcul" placeholder="<?php echo rand(1,20). "+" .rand(1,20) ?>" required autofocus><br>
+                    <input class="formulaire" type="text" name="resultat" placeholder="<?php echo $nb1 . "+" . $nb2 ?>" required autofocus><br>
                     <label>Username :</label></br>
-                    <input class="formulaire" type="text" name="usernamer" required><br>
+                    <input class="formulaire" type="text" name="username" required><br>
                     <label>Nouveau mot de passe :</label></br>
-                    <input class="formulaire" type="password" name="pwd" required><br>
+                    <input class="formulaire" type="password" name="newpassword" required><br>
                     <label>Confirmez le mot de passe :</label></br>
-                    <input class="formulaire" type="password" name="pwd" required><br>
+                    <input class="formulaire" type="password" name="newconfirmedpassword" required><br>
                     <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>
                     <a href="pinscription.php">Pas encore inscrit ?</a><br>  
                     <input type="submit" class="button" name="bModifypwd" value="Modifier"></input>
@@ -29,6 +34,6 @@
 
     </div>
    
-<?php
+<?php   }
     include('footer.php');
 ?>
