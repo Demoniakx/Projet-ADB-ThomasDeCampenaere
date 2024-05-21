@@ -10,6 +10,7 @@
 <div class="top">
     <div>
         <h1>Modifications</h1>
+        <?php if(isset($message)){ echo $message;}  ?> <br>
     </div>
     <div class="form">
         <form>

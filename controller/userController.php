@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('../model/userModel.php');
+    require('../model/userModel.php');
 
 //si le bouton inscription a été envoyé.
 if(isset($_POST['bInscription'])){
@@ -13,24 +13,27 @@ if(isset($_POST['bInscription'])){
     $regexemail = "/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/";
 
     //si les données récupérées ne sont pas vides
-    if(!empty($email) && !empty($username) && !empty($nom) && !empty($prenom) && !empty($password)){
+    if (isset($email) && isset($username) && isset($lastname) && isset($firstname) && isset($password) && isset($confirmedpassword))   {    
 
         //si les mots de passes correspondent
         if($password === $confirmedpassword){
+            if(strlen($password) < 8){
+                $error["8"] = "Le mot de passe doit contenir au moins 8 caractères.";
+                header("Location: ../vue/pinscription.php?message=" . $error["8"]);
+                exit;
+            }
             
             //si le mot de passe de passe n'est pas vide lors de l'inscription et que l'adresse mail a un format valide
             if(!preg_match($regexemail, $email)){
-            $errormail = "L'adresse email '$email' n'est pas valide.";
-            }
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            //Si l'adresse mail n'est pas valide
-            if (isset($errormail)){
+                //Si l'adresse mail n'est pas valide
+                $error["mail"] = "L'adresse email '$email' n'est pas valide.";
                 //On transmet le message par l'url avec la redirection
-                header("Location: ../vue/pinscription.php?message=" . $errormail);
+                header("Location: ../vue/pinscription.php?message=" . $error["mail"]);
                 exit;
             }
-            // On transmet à la fonction "insertdata" les données à introduire en base de données, si l'inscription a rencontré un problème, on envoi un message a l'utilisateur
-            $message = insertData($email, $username, $lastname, $firstname, $password);
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            // On transmet à la fonction "insertUser" les données à introduire en base de données, si l'inscription a rencontré un problème, on envoi un message a l'utilisateur
+            $message = insertUser($email, $username, $lastname, $firstname, $password);
             if (isset($message)){
                 //On transmet le message par l'url avec la redirection
                 header("Location: ../vue/pinscription.php?message=" . $message);
@@ -39,7 +42,17 @@ if(isset($_POST['bInscription'])){
             //On redirige l'utilisateur vers la page de connexion et transmet à l'utilisateur la réussite de l'inscription
             header("Location: ../vue/pconnexion.php?success");
             exit;
+        }else{
+            //Si les mots de passes ne correspondent pas
+            $error["password"] = "Les mots de passes ne correspondent pas.";
+            //On transmet le message par l'url avec la redirection
+            header("Location: ../vue/pinscription.php?message=" . $error['password']);
+            exit;
         }
+    }else{
+        //Si les champs ne sont pas remplis
+        $error["empty"] = "Veuillez remplir tous les champs.";
+        header("Location: ../vue/pinscription.php?message=" . $error['empty']);
     }
 }
 //Si le bouton modifier a été envoyé
@@ -50,7 +63,7 @@ elseif(isset($_POST['bModifyuser'])){
     $email = htmlspecialchars(trim($_POST['mail']));
     $lastname = htmlspecialchars(trim($_POST['lastname']));
     $firstname = htmlspecialchars(trim($_POST['firstname']));
-    if(!empty($email) && !empty($lastname) && !empty($firstname)){
+    if(isset($email) && isset($lastname) && isset($firstname)){
         if (update($id, $email, $lastname, $firstname)){
             // On détruit l'ancienne session
             session_destroy();
@@ -70,9 +83,9 @@ elseif(isset($_POST['bModifyuser'])){
 
 } else if (isset($_POST['bConnexion'])) {
     //On récupère le login et le mdp
-    $username = htmlspecialchars(strtolower(trim($_POST['login'])));
-    $password = password_hash(htmlspecialchars(trim($_POST['password'])), PASSWORD_DEFAULT);
-    // On appelle la fonction login
+    $username = htmlspecialchars(trim($_POST['login']));
+    $password = htmlspecialchars(trim($_POST['password']));
+    // On appelle la fonction login qui permet de créer une session avec les données utilisateur
     $message = login($username, $password);
     // On le redirige vers l'accueil
     if(isset($message)){
@@ -80,15 +93,16 @@ elseif(isset($_POST['bModifyuser'])){
         exit;
     }else{
         header("Location: ../vue/paccueil.php");
+        var_dump($_SESSION['user']);
         exit;
     }
 
-} else if (isset($_POST['bDeconnect'])) {
+} else if (isset($_GET['action']) && $_GET['action'] == 'deconnect') {
     //On appelle la fonction déconnexion qui
     logout();
     header("Location: ../index.php");
     exit;
-}  else if (isset($_POST['bDelete'])) {
+} else if (isset($_POST['bDelete'])) {
     //On récupère les id des deux tables concernées
     $id = $_POST['id'];
     $id2 = $_SESSION['user']['users_data_id'];
@@ -105,8 +119,8 @@ if(isset($_POST['bAddrecipe'])){
     $ingredients = htmlspecialchars(trim($_POST['ingredients']));
     $person = htmlspecialchars(trim($_POST['person']));
     $recipe = htmlspecialchars(trim($_POST['recipe']));
-    $author = $_SESSION['users']['username'];
-    $idUser = $_SESSION['users']['id'];
+    $author = $_SESSION['user']['username'];
+    $idUser = $_SESSION['user']['id'];
     $date_create = date('d-m-y');
 
     if(!empty($title) && !empty($cookingtools) && !empty($ingredients) && !empty($person)){
@@ -117,7 +131,7 @@ if(isset($_POST['bAddrecipe'])){
             header("Location: ../vue/pajoutrecette.php?message=" . $message);
         }
         //On redirige et transmet à l'utilisateur la réussite de l'ajout de la recette
-        header("Location: ../vue/pajoutrecette.php?success");
+        header("Location: ../vue/paccueil.php?success");
         exit;
     }
 

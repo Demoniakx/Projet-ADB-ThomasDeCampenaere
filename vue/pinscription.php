@@ -10,9 +10,9 @@
             <div>
                 <h1>Inscription</h1>
                 <!-- Si un message d'erreur ou de confirmation est envoyé par le controller -->
-                <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?>
+                <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?> <br>
                 <?php if(isset($_GET['error'])){ 
-                ?> <p>Une erreur s'est produite</p>
+                ?> <p>Une erreur s'est produite</p><br>
                 <?php }  ?>
             </div>
             <div class="form">
@@ -25,8 +25,8 @@
                     <input class="formulaire" type="text" name="lastname" required><br>
                     <label>Prénom :</label></br>
                     <input class="formulaire" type="text" name="firstname" required><br>
-                    <label>Mot de passe :</label></br>
-                    <input class="formulaire" type="password" name="pwd" required min="8"><br>
+                    <label>Mot de passe : (minimum 8 caractères)</label></br>
+                    <input class="formulaire" type="password" name="pwd" required><br>
                     <label>Confirmez le mot de passe :</label></br>
                     <input class="formulaire" type="password" name="pwdconfirmed" required><br>
                     <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>

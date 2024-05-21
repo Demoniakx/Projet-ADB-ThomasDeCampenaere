@@ -7,14 +7,15 @@ L'ensemble des fonctions se trouvera dans ce fichier "userModel"
 include("../model/dbconnect.php");
 
 //Fonction insertion de données user
-function insertData($email,$username,$lastname,$firstname,$password){
+function insertUser($email,$username,$lastname,$firstname,$password){
     //Récupération de la BDD avec le variable globale
     global $bdd;
+    //Initialisation des variables role et date_create
     $role = 0;
     $date_create = date('d-m-y');
     
     //On récupère la requête pour l'insertion des données personnelles du user.
-    $querysql = "INSERT INTO users (email, username, lastname, firstname, password, role, date_create VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
+    $querysql = "INSERT INTO users (email, username, lastname, firstname, password, role, date_create) VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":email",$email);
@@ -23,7 +24,7 @@ function insertData($email,$username,$lastname,$firstname,$password){
     $stmtUser->bindParam(":firstname",$firstname);
     $stmtUser->bindParam(":password",$password);
     $stmtUser->bindParam(":role",$role);
-    $stmtUser->BindParam(":date_create,",$date_create);
+    $stmtUser->BindParam(":date_create",$date_create);
 
     //Execution de la requête SQL et génération du message d'erreur s'il y en a une.
     try{
@@ -41,10 +42,9 @@ function login($username,$password){
     //Récupération de la BDD
     global $bdd;
     //préparation de la requuête
-    $sqlConnect = "SELECT * FROM user WHERE username= :username AND password= :password";
+    $sqlConnect = "SELECT * FROM users WHERE username= :username";
     $stmtUser = $bdd->prepare($sqlConnect);
     $stmtUser->bindParam(":username",$username);
-    $stmtUser->bindParam(":password",$password);
 
     try{
         $stmtUser->execute();
@@ -56,17 +56,27 @@ function login($username,$password){
     //On récupère les données de la BDD dans un tableau
     $user = $stmtUser->fetch();
 
-    //On stocke le tableau dans une session
     $_SESSION['user'] = $user;
 
-    $sqldatelog = "UPDATE users Set date_log = NOW() WHERE :id = id";
-    $stmtUser = $bdd->prepare($sqldatelog);
-    $stmtUser->bindparam(":id",$_SESSION['user']['id']);
+    if(isset($password)){
+        $password = password_hash($password, PASSWORD_DEFAULT);
+    }else{
+        $message = "Veuillez renseigner un mot de passe";
+        header("Location: ../vue/pconnexion.php?message=" . $message);
+    }
 
-    try{
-        $stmtUser->execute();
-    }catch(PDOException $e){
-        $message = "Erreur lors de la mise a jour de la date de connection";
+    if(!(password_verify($password,$user["password"]))){
+
+        $sqldatelog = "UPDATE users Set date_log = NOW() WHERE :id = id";
+        $stmtUser = $bdd->prepare($sqldatelog);
+        $stmtUser->bindparam(":id",$_SESSION['user']['id']);
+
+        try{
+            $stmtUser->execute();
+        }catch(PDOException $e){
+            $message = "Erreur lors de la mise a jour de la date de connection";
+        }
+        if(isset($message)){return $message;}   
     }
 }
 
@@ -109,6 +119,7 @@ function drop($id){
 //Fonction qui permet de  se déconnecter et supprimer les données de la session.
 function logout(){
     session_destroy();
+    header("Location: ../index.php");exit;
 }
 
 //Fonction qui permet d'insérer un recette en BDD
@@ -116,7 +127,7 @@ function InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
     //Récupération de la BDD avec le variable globale
     global $bdd;
     //On récupère la requête pour l'insertion des données de la recette
-    $querysql = "INSERT INTO recipe (title,cookingtools,ingredients,person,recipe,author,idUser,date_create) VALUES (:title, :cookingtools, :ingredients, :person, :recipe, :author, :idUser, :date_create)";
+    $querysql = "INSERT INTO recipes (title,cookingtools,ingredients,person,recipe,author,idUser,date_create) VALUES (:title, :cookingtools, :ingredients, :person, :recipe, :author, :user_id, :date_create)";
     $stmtUser = $bdd->prepare($querysql);
     //Les Bindparams
     $stmtUser->bindParam(":title",$title);
@@ -125,7 +136,7 @@ function InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
     $stmtUser->bindParam(":person",$person);
     $stmtUser->bindParam(":recipe",$recipe);
     $stmtUser->bindParam(":author",$author);
-    $stmtUser->bindParam(":idUser",$idUser);
+    $stmtUser->bindParam(":user_id",$idUser);
     $stmtUser->BindParam(":date_create",$date_create);
 
     //Execution de la requête SQL et génération du message d'erreur s'il y en a une.
