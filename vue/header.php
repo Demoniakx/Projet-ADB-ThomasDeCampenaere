@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../asset/CSS/formulaire.css">
     <title><?php echo $onglet ?></title>
-  
+
 </head>
-<body>
+<body>        
     <header>
         <?php session_start(); ?>
         <div>
@@ -35,7 +35,7 @@
                             <?php 
                         }else{
                             ?>
-                            <li><a href="../controller/userController.php?action=deconnect">Déconnexion</a></li>
+                            <li><a href="pdeconnect.php">Déconnexion</a></li>
                         <?php }
                         if(isset($_SESSION['user'])){
                             if($_SESSION['user']['role'] == '1'){

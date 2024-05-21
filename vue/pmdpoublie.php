@@ -1,8 +1,8 @@
 <?php
     $onglet = 'Mot de passe oublié';
     include('header.php');
-    $_SESSION['calcul'] = rand(1,20);
-    $_SESSION['calcul'] = rand(1,20);
+    $_SESSION['nb1'] = rand(1,20);
+    $_SESSION['nb2'] = rand(1,20);
     if(isset($_SESSION['user'])){
         header("Location: paccueil.php");
     }else{
@@ -18,7 +18,7 @@
             <div class="form">
                 <form method="post" action="../controller/userController.php">
                     <label>Résolvez ce calcul :</label></br>
-                    <input class="formulaire" type="text" name="resultat" placeholder="<?php echo $nb1 . "+" . $nb2 ?>" required autofocus><br>
+                    <input class="formulaire" type="text" name="resultat" placeholder="<?php echo $_SESSION['nb1'] . "+" . $_SESSION['nb2'] ?>" required autofocus><br>
                     <label>Username :</label></br>
                     <input class="formulaire" type="text" name="username" required><br>
                     <label>Nouveau mot de passe :</label></br>

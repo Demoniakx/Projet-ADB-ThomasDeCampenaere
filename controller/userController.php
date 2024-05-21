@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require('../model/userModel.php');
 
 //si le bouton inscription a été envoyé.
@@ -56,14 +57,14 @@ if(isset($_POST['bInscription'])){
 }
 //Si le bouton modifier a été envoyé
 elseif(isset($_POST['bModifyuser'])){
-    $id = $_SESSION['user']['ID'];
-    $password = $_SESSION['user']['password'];
+    $id = $_SESSION['user']['id'];
+    $password = htmlspecialchars(trim($_POST['password']));
     $username = $_SESSION['user']['username'];
     $email = htmlspecialchars(trim($_POST['mail']));
     $lastname = htmlspecialchars(trim($_POST['lastname']));
     $firstname = htmlspecialchars(trim($_POST['firstname']));
     if(isset($email) && isset($lastname) && isset($firstname)){
-        if (update($id, $email, $lastname, $firstname)){
+        update($id, $email, $lastname, $firstname);
             // On détruit l'ancienne session
             session_destroy();
             // On démarre une session 
@@ -73,18 +74,13 @@ elseif(isset($_POST['bModifyuser'])){
             // On redirige vers l'accueil avec un message de réussite
             header("Location: ../vue/pmodificationdonneesuser.php?success");
             exit;
-        } else {
-            //On redirige vers l'inscription avec un message d'erreur
-            header("Location: ../vue/pmodificationdonneesuser.php?error");
-            exit;
-        }
     }
 
 } else if (isset($_POST['bConnexion'])) {
     //On récupère le login et le mdp
     $username = htmlspecialchars(trim($_POST['login']));
     $password = htmlspecialchars(trim($_POST['password']));
-    if(!empty($username) && !empty($password)){
+    if(isset($username) && isset($password)){
         //On appelle la fonction login qui permet de créer une session avec les données utilisateur
         $message = login($username, $password);
         //On le redirige vers l'accueil
@@ -98,25 +94,8 @@ elseif(isset($_POST['bModifyuser'])){
     }else{
         //Si les champs ne sont pas remplis
         $error["empty"] = "Veuillez remplir tous les champs.";
-        header("Location: ../vue/pinscription.php?message=" . $error['empty']);
+        header("Location: ../vue/pconnexion.php?message=" . $error['empty']);
     }   
-    // On appelle la fonction login qui permet de créer une session avec les données utilisateur
-    $message = login($username, $password);
-    // On le redirige vers l'accueil
-    if(isset($message)){
-        header("Location: ../vue/pconnexion.php?message=" . $message);
-        exit;
-    }else{
-        header("Location: ../vue/paccueil.php");
-        var_dump($_SESSION['user']);
-        exit;
-    }
-
-} else if (isset($_GET['action']) && $_GET['action'] == 'deconnect') {
-    //On appelle la fonction déconnexion qui
-    logout();
-    header("Location: ../index.php");
-    exit;
 
 } else if (isset($_POST['bDelete'])) {
     //On récupère les id des deux tables concernées
@@ -165,15 +144,20 @@ if(isset($_POST['bAddrecipe'])){
 } else if(isset($_POST['bSupprimerrecette'])){
     $message = Deleterecipe($recipeid);
 }else if(isset($_POST['bModifypwd'])){
-    $nb1 = $_SESSION['calcul']['1'];
-    $nb2 = $_SESSION['calcul']['2'];
+    $nb1 = $_SESSION['nb1'];
+    $nb2 = $_SESSION['nb2'];
     $resultat = htmlspecialchars(trim($_POST['resultat']));
     $username = htmlspecialchars(trim($_POST['username']));
     $password = htmlspecialchars(trim($_POST['newpassword']));
-    $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword']));   
-    if(!empty($password) && !empty($confirmedpassword)){
-        if($resultat === ($nb1 + $nb2)){
+    $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword'])); 
+    if(isset($password) && isset($confirmedpassword)){
+        if($resultat === ($nb1 + $nb2) && $password === $confirmedpassword){
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $message = pwdforget($username, $password);
+            if(isset($message)){
+                header("Location: ../vue/pmdpoublie.php?message=" . $message);
+                exit;
+            }
         }
     }else{
         $error["empty"] = "Veuillez remplir tous les mots de passe.";

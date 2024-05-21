@@ -13,13 +13,15 @@
         <?php if(isset($message)){ echo $message;}  ?> <br>
     </div>
     <div class="form">
-        <form>
+        <form method="POST" action="../controller/userController.php">
             <label>Email :</label></br>
             <input class="formulaire" type="email" name="mail" required autofocus value="<?php if(isset($_SESSION['user'])){ echo $_SESSION['user']['email'];}?>"/><br>
             <label>Nom :</label></br>
             <input class="formulaire" type="text" name="lastname" required value="<?php if(isset($_SESSION['user'])){ echo $_SESSION['user']['lastname'];}?>"/><br>
             <label>Prénom :</label></br>
             <input class="formulaire" type="text" name="firstname" required value="<?php if(isset($_SESSION['user'])){ echo $_SESSION['user']['firstname'];}?>"/><br>
+            <label>Mot de passe :</label></br>
+            <input class="formulaire" type="password" name="password" required></br>
             <input type="submit" class="button" name="bModifyuser" value="Modifier"></input>
         </form>
     </div>

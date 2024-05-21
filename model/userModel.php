@@ -56,14 +56,7 @@ function login($username,$password){
     //On récupère les données de la BDD dans un tableau
     $user = $stmtUser->fetch();
 
-    if(isset($password)){
-        $password = password_hash($password, PASSWORD_DEFAULT);
-    }else{
-        $message = "Veuillez renseigner un mot de passe";
-        header("Location: ../vue/pconnexion.php?message=" . $message);
-    }
-
-    if(password_verify($password,$user["password"])){
+    if(password_verify($password,$user['password'])){
         $_SESSION['user'] = $user;
         //On met à jour la date de connection
         $sqldatelog = "UPDATE users Set date_log = NOW() WHERE :id = id";
@@ -115,12 +108,6 @@ function drop($id){
     $stmtUser->execute();
 
     return true;
-}
-
-//Fonction qui permet de  se déconnecter et supprimer les données de la session.
-function logout(){
-    session_destroy();
-    header("Location: ../index.php");exit;
 }
 
 //Fonction qui permet d'insérer un recette en BDD
