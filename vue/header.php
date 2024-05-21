@@ -19,7 +19,6 @@
                     <li><a href="paccueil.php">Accueil</a></li>
                     <?php
                         if(!isset($_SESSION['user'])){
-
                     ?>
                             <li><a href="pinscription.php">Ajouter une recette</a></li>
                     <?php
