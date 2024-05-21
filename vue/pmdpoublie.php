@@ -24,9 +24,7 @@
                     <label>Nouveau mot de passe :</label></br>
                     <input class="formulaire" type="password" name="newpassword" required><br>
                     <label>Confirmez le mot de passe :</label></br>
-                    <input class="formulaire" type="password" name="newconfirmedpassword" required><br>
-                    <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>
-                    <a href="pinscription.php">Pas encore inscrit ?</a><br>  
+                    <input class="formulaire" type="password" name="newconfirmedpassword" required><br>  
                     <input type="submit" class="button" name="bModifypwd" value="Modifier"></input>
                 </form>
             </div>
