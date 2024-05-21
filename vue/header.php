@@ -18,7 +18,7 @@
                 <ul class="liste">
                     <li><a href="paccueil.php">Accueil</a></li>
                     <?php
-                        if(!isset($_SESSION)){
+                        if(!isset($_SESSION['user'])){
 
                     ?>
                             <li><a href="pinscription.php">Ajouter une recette</a></li>
@@ -30,7 +30,7 @@
                     ?>
 
                     <?php
-                        if(!isset($_SESSION)){
+                        if(!isset($_SESSION['user'])){
                             ?>
                             <li><a href="pconnexion.php">Connexion</a></li>
                             <?php 
@@ -43,7 +43,7 @@
                                 ?>
                                 <li><a href="padmin.php">Admin</a></li>
                                 <?php
-                            }elseif($_SESSION){
+                            }elseif($_SESSION['user']['role'] == "0"){
                                 ?>
                                 <li><a href="pmodificationdonneesuser.php">Espace utilisateur</a></li>
                                 <?php
