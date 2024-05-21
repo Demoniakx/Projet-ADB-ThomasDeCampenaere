@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require('../model/userModel.php');
 
 //si le bouton inscription a été envoyé.
@@ -173,7 +172,7 @@ if(isset($_POST['bAddrecipe'])){
     $password = htmlspecialchars(trim($_POST['newpassword']));
     $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword']));   
     if(!empty($password) && !empty($confirmedpassword)){
-        if($resultat == ($nb1 + $nb2)){
+        if($resultat === ($nb1 + $nb2)){
             $message = pwdforget($username, $password);
         }
     }else{
