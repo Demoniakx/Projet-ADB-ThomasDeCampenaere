@@ -85,6 +85,22 @@ elseif(isset($_POST['bModifyuser'])){
     //On récupère le login et le mdp
     $username = htmlspecialchars(trim($_POST['login']));
     $password = htmlspecialchars(trim($_POST['password']));
+    if(!empty($username) && !empty($password)){
+        //On appelle la fonction login qui permet de créer une session avec les données utilisateur
+        $message = login($username, $password);
+        //On le redirige vers l'accueil
+        if(isset($message)){
+            header("Location: ../vue/pconnexion.php?message=" . $message);
+            exit;
+        }else{
+            header("Location: ../vue/paccueil.php");
+            exit;
+        }
+    }else{
+        //Si les champs ne sont pas remplis
+        $error["empty"] = "Veuillez remplir tous les champs.";
+        header("Location: ../vue/pinscription.php?message=" . $error['empty']);
+    }   
     // On appelle la fonction login qui permet de créer une session avec les données utilisateur
     $message = login($username, $password);
     // On le redirige vers l'accueil
@@ -102,6 +118,7 @@ elseif(isset($_POST['bModifyuser'])){
     logout();
     header("Location: ../index.php");
     exit;
+
 } else if (isset($_POST['bDelete'])) {
     //On récupère les id des deux tables concernées
     $id = $_POST['id'];
@@ -112,6 +129,7 @@ elseif(isset($_POST['bModifyuser'])){
         echo $message;
     }
 }
+
 //Si le bouton Ajouter pour la page ajout recette a été envoyé
 if(isset($_POST['bAddrecipe'])){
     $title = htmlspecialchars(trim($_POST['title']));

@@ -32,7 +32,6 @@
                     <input class="formulaire" type="password" name="pwd" required><br>
                     <label>Confirmez le mot de passe :</label></br>
                     <input class="formulaire" type="password" name="pwdconfirmed" required><br>
-                    <a href="pmdpoublie.php">Mot de passe oublié ?</a><br>
                     <a href="pconnexion.php">Déjà inscrit ?</a><br>   
                     <input class="button" type="submit" name="bInscription" value="Inscription"></input>
                 </form>

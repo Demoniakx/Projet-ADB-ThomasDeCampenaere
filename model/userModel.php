@@ -56,8 +56,6 @@ function login($username,$password){
     //On récupère les données de la BDD dans un tableau
     $user = $stmtUser->fetch();
 
-    $_SESSION['user'] = $user;
-
     if(isset($password)){
         $password = password_hash($password, PASSWORD_DEFAULT);
     }else{
@@ -65,8 +63,9 @@ function login($username,$password){
         header("Location: ../vue/pconnexion.php?message=" . $message);
     }
 
-    if(!(password_verify($password,$user["password"]))){
-
+    if(password_verify($password,$user["password"])){
+        $_SESSION['user'] = $user;
+        //On met à jour la date de connection
         $sqldatelog = "UPDATE users Set date_log = NOW() WHERE :id = id";
         $stmtUser = $bdd->prepare($sqldatelog);
         $stmtUser->bindparam(":id",$_SESSION['user']['id']);
@@ -88,17 +87,19 @@ function update($id,$email,$lastname,$firstname){
     $querysqlupdate = "UPDATE users SET email= :email, lastname= :lastname, firstname= :firstname WHERE id = :id";
     //Préparation de la requête SQL
     $stmtUserUpdate = $bdd->prepare($querysqlupdate);
-    $stmtUserUpdate->bindParam(":id",$id);
+    //BindParams
     $stmtUserUpdate->bindParam(":email",$email);
     $stmtUserUpdate->bindParam(":lastname",$lastname);
     $stmtUserUpdate->bindParam(":firstname",$firstname);
+    $stmtUserUpdate->bindParam(":id",$id);
 
     try{
         $stmtUserUpdate->execute();
     }catch(PDOException $e){
         $message = "Erreur lors de la modification des données";
     }
-
+    //Retourne le message si celui-ci a été généré (erreur lors de la modification des données)
+    if(isset($message)){return $message;}
     //Si la variable message n'existe pas, tout s'est bien déroulé
 
 }
