@@ -3,8 +3,8 @@
     include('header.php');
     include('../model/dbconnect.php');
 ?>
-<div class="container gridaccueil">
-    <div class="">
+<div class="container">
+    <div class="gridaccueil">
         <?php
         //RECUPERATION DE LA CONNEXION A LA BDD
         global $bdd;
@@ -24,12 +24,13 @@
                     <?php echo $recipe['recipe']['person']. " Personnes"; ?>
                 </p>            
             </div>
+            <?php
+            }
+            $reponse->closeCursor(); // Termine le traitement de la requête
+            ?>
         </a>
     </div>
-    <?php
-    }
-    $reponse->closeCursor(); // Termine le traitement de la requête
-    ?>
+
 </div>
       
 

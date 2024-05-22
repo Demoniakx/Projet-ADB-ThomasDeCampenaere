@@ -21,7 +21,7 @@
                     <?php
                         if(!isset($_SESSION['user'])){
                     ?>
-                            <li><a href="pinscription.php">Ajouter une recette</a></li>
+                            <li><a href="pconnexion.php">Ajouter une recette</a></li>
                     <?php
                        }else{
                         ?>

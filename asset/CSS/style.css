@@ -154,7 +154,7 @@ header{
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 5rem;
-    row-gap: 5rem;
+    row-gap: 3rem;
 }
 
 .card_accueil{
