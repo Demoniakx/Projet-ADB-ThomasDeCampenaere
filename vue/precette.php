@@ -19,7 +19,7 @@
         $reponse->execute();
         while ($recipe['recipe'] = $reponse->fetch()) {
         ?>
-        <div class="top">
+        <div class="toprecipe">
             <h1><?php echo $recipe['recipe']['title']; ?></h1>
             <div class="card">
                 <div>

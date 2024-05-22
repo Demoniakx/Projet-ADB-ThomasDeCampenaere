@@ -3,8 +3,8 @@
     include('header.php');
     include('../model/dbconnect.php');
 ?>
-<div class="container">
-    <div class="card_recipe">
+<div class="container gridaccueil">
+    <div class="">
         <?php
         //RECUPERATION DE LA CONNEXION A LA BDD
         global $bdd;
@@ -16,11 +16,14 @@
         ?>
         <a href="precette.php?id=<?php echo $id ?>">
             <div class="card_accueil">
-                <p><?php echo $recipe['recipe']['title']; ?></p>
-            </div>
+                <p>
+                    <?php echo $recipe['recipe']['title']; ?>
+                </p>
+
                 <p>
                     <?php echo $recipe['recipe']['person']. " Personnes"; ?>
-                </p>
+                </p>            
+            </div>
         </a>
     </div>
     <?php
