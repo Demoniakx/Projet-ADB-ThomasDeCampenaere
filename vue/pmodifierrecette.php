@@ -9,6 +9,10 @@
         <div class="top">
             <div>
                 <h1>Recette</h1>
+                <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?> <br>
+                    <?php if(isset($_GET['error'])){ 
+                    ?> <p>Une erreur s'est produite</p><br>
+                    <?php } ?>
             </div>
             <!--Formulaire visible que par l'admin, il y'a que l'admin qui peut modifier les recettes-->
             <div class="form">

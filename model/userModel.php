@@ -205,4 +205,22 @@ function pwdforget($username,$password){
     //Si la variable message n'existe pas, tout s'est bien déroulé
     if(isset($message)){return $message;}
 }
+//Fontion qui permet de supprimer un user
+function Deleteuser($userid){
+    //Récupération de la BDD
+    global $bdd;
+    //Suppression de l'utilisateur
+    $querysql = "DELETE FROM users WHERE id= :userid";
+    $stmtUser = $bdd->prepare($querysql);
+    $stmtUser->bindParam(":userid",$userid);
+    $stmtUser->execute();
+
+    try{
+        $stmtUser->execute();
+    }catch(PDOException $e){
+        $message = "Erreur lors de la suppression de la recette";
+    }
+
+    if(isset($message)){return $message;}
+}
 ?>

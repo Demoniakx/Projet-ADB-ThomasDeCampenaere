@@ -95,16 +95,6 @@ elseif(isset($_POST['bModifyuser'])){
         //Si les champs ne sont pas remplis
         $error["empty"] = "Veuillez remplir tous les champs.";
         header("Location: ../vue/pconnexion.php?message=" . $error['empty']);
-    }   
-
-} else if (isset($_POST['bDeleteuser'])) {
-    //On récupère les id des deux tables concernées
-    $id = $_POST['id'];
-    $id2 = $_SESSION['user']['users_data_id'];
-    //On transmet les données à la fonction 
-    if (drop($id,$id2)) {
-        $message = "suppression de l'utilisateur réussie";
-        echo $message;
     }
 }
 
@@ -141,8 +131,6 @@ if(isset($_POST['bAddrecipe'])){
     //On redirige et transmet à l'utilisateur la réussite de la modification de la recette
     header("Location: ../vue/pmodifierrecette.php?success");
     exit;
-} else if(isset($_POST['bSupprimerrecette'])){
-    $message = Deleterecipe($recipeid);
 }else if(isset($_POST['bModifypwd'])){
     $nb1 = $_POST['nb1'];
     $nb2 = $_POST['nb2'];
