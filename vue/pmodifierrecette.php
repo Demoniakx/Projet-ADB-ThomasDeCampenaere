@@ -28,9 +28,9 @@
                     <?php
                     //On récupère l'id de la recette pour la modification
                     if(isset($donnees['recipe']['id'])){
-                    ?>
-                    <input type="hidden" value="<?php echo $donnees['recipe']['id']; ?>" name="id">
-                    <?php
+                        ?>
+                        <input type="hidden" value="<?php echo $donnees['recipe']['id']; ?>" name="id">
+                        <?php
                     }
                     ?>
                     <input class="button" type="submit" name="bModifyrecipe" value="Modifier"></input>

@@ -97,7 +97,7 @@ elseif(isset($_POST['bModifyuser'])){
         header("Location: ../vue/pconnexion.php?message=" . $error['empty']);
     }   
 
-} else if (isset($_POST['bDelete'])) {
+} else if (isset($_POST['bDeleteuser'])) {
     //On récupère les id des deux tables concernées
     $id = $_POST['id'];
     $id2 = $_SESSION['user']['users_data_id'];
