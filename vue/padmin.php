@@ -10,7 +10,7 @@
 ?>
 
 <div class="container">
-    <div class="">
+    <div class="board">
                     <?php
                     //RECUPERATION DE LA CONNEXION A LA BDD
                     global $bdd;
@@ -19,28 +19,21 @@
                     while ($donnees = $reponse->fetch()) {
                     ?>
                         <div class="">
-                            <div class="">
-                                <p><?php echo $donnees['id']; ?></p>
-                            </div>
-                            <p>
-                                <?php echo $donnees['firstname']; ?>
-                            </p>
-                            <p>
-                                <?php echo $donnees['lastname']; ?>
-                            </p>
                             <p>
                                 <?php echo $donnees['username']; ?>
                             </p>
                             <p>
                                 <?php echo $donnees['email']; ?>
                             </p>
+                            <a href="pmodifyuser;php">modifier</a>
+                            <a href="pdeleteuser.php">X</a>
                         </div>
                     <?php
                     }
                     $reponse->closeCursor(); // Termine le traitement de la requÃªte
                     ?>
     </div>
-    <div>
+    <div class="board">
     <?php
         //RECUPERATION DE LA CONNEXION A LA BDD
         global $bdd;

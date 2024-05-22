@@ -157,6 +157,10 @@ header{
     row-gap: 3rem;
 }
 
+.gridaccueil a{
+    text-decoration: none;
+}
+
 .card_accueil{
     background-color: #F2F5FA;
     border-radius: 30px;

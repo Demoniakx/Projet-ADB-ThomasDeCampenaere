@@ -13,7 +13,7 @@ if(isset($_POST['bInscription'])){
     $regexemail = "/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/";
 
     //si les données récupérées ne sont pas vides
-    if (isset($email) && isset($username) && isset($lastname) && isset($firstname) && isset($password) && isset($confirmedpassword))   {    
+    if (!empty($email) && !empty($username) && !empty($lastname) && !empty($firstname) && !empty($password) && !empty($confirmedpassword))   {    
 
         //si les mots de passes correspondent
         if($password === $confirmedpassword){
@@ -63,7 +63,7 @@ elseif(isset($_POST['bModifyuser'])){
     $email = htmlspecialchars(trim($_POST['mail']));
     $lastname = htmlspecialchars(trim($_POST['lastname']));
     $firstname = htmlspecialchars(trim($_POST['firstname']));
-    if(isset($email) && isset($lastname) && isset($firstname)){
+    if(!empty($email) && !empty($lastname) && !empty($firstname)){
         update($id, $email, $lastname, $firstname);
             // On détruit l'ancienne session
             session_destroy();
@@ -80,7 +80,7 @@ elseif(isset($_POST['bModifyuser'])){
     //On récupère le login et le mdp
     $username = htmlspecialchars(trim($_POST['login']));
     $password = htmlspecialchars(trim($_POST['password']));
-    if(isset($username) && isset($password)){
+    if(!empty($username) && !empty($password)){
         //On appelle la fonction login qui permet de créer une session avec les données utilisateur
         $message = login($username, $password);
         //On le redirige vers l'accueil
@@ -109,7 +109,7 @@ if(isset($_POST['bAddrecipe'])){
     $idUser = $_SESSION['user']['id'];
     $date_create = date('y-m-d');
 
-    if(!empty($title) && !empty($cookingtools) && !empty($ingredients) && !empty($person)){
+    if(!empty($title) && !empty($cookingtools) && !empty($ingredients) && !empty($person) && !empty($recipe)){
         $message = InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $author, $idUser, $date_create);
         //vérification s'il y a un message d'erreur
         if(isset($message)){
