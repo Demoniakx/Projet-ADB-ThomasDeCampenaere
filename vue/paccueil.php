@@ -1,7 +1,6 @@
 <?php
     $onglet = 'Accueil';
     include('header.php');
-    require('../controller/userController.php');
 
 ?>
 

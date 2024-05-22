@@ -12,7 +12,7 @@ function insertUser($email,$username,$lastname,$firstname,$password){
     global $bdd;
     //Initialisation des variables role et date_create
     $role = 0;
-    $date_create = date('d-m-y');
+    $date_create = date('y-m-d H:i:s');
     
     //On récupère la requête pour l'insertion des données personnelles du user.
     $querysql = "INSERT INTO users (email, username, lastname, firstname, password, role, date_create) VALUES (:email, :username, :lastname, :firstname, :password, :role, :date_create)";
@@ -152,6 +152,7 @@ function Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
     $stmtUserUpdate->bindParam(":person",$person);
     $stmtUserUpdate->bindParam(":recipe",$recipe);
     $stmtUserUpdate->bindParam(":author",$author);
+    $stmtUserUpdate->bindParam(":id",$id);
 
     try{
         $stmtUserUpdate->execute();
@@ -173,10 +174,16 @@ function Deleterecipe($recipeid){
     //Suppression de l'utilisateur
     $querysql = "DELETE FROM recipes WHERE id= :recipeid";
     $stmtUser = $bdd->prepare($querysql);
-    $stmtUser->bindParam(":recipeid",$id);
+    $stmtUser->bindParam(":recipeid",$recipeid);
     $stmtUser->execute();
 
-    return true;
+    try{
+        $stmtUser->execute();
+    }catch(PDOException $e){
+        $message = "Erreur lors de la suppression de la recette";
+    }
+
+    if(isset($message)){return $message;}
 }
 
 //Function qui gérera le calcul et la modification du mot de passe si le user a oublié son mot de passe
@@ -196,9 +203,6 @@ function pwdforget($username,$password){
     }
 
     //Si la variable message n'existe pas, tout s'est bien déroulé
-    if(!isset($message)){
-        return true;
-    }
-    return false;
+    if(isset($message)){return $message;}
 }
 ?>

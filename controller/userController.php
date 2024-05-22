@@ -117,7 +117,7 @@ if(isset($_POST['bAddrecipe'])){
     $recipe = htmlspecialchars(trim($_POST['recipe']));
     $author = $_SESSION['user']['username'];
     $idUser = $_SESSION['user']['id'];
-    $date_create = date('d-m-y');
+    $date_create = date('y-m-d');
 
     if(!empty($title) && !empty($cookingtools) && !empty($ingredients) && !empty($person)){
         $message = InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $author, $idUser, $date_create);
@@ -131,7 +131,7 @@ if(isset($_POST['bAddrecipe'])){
         exit;
     }
 
-} else if(isset($_POST['bModifierrecette'])){
+} else if(isset($_POST['bModifyrecipe'])){
     $message = Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $author);
     //vérification s'il y a un message d'erreur
     if(isset($message)){
@@ -144,18 +144,22 @@ if(isset($_POST['bAddrecipe'])){
 } else if(isset($_POST['bSupprimerrecette'])){
     $message = Deleterecipe($recipeid);
 }else if(isset($_POST['bModifypwd'])){
-    $nb1 = $_SESSION['nb1'];
-    $nb2 = $_SESSION['nb2'];
+    $nb1 = $_POST['nb1'];
+    $nb2 = $_POST['nb2'];
     $resultat = htmlspecialchars(trim($_POST['resultat']));
     $username = htmlspecialchars(trim($_POST['username']));
     $password = htmlspecialchars(trim($_POST['newpassword']));
-    $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword'])); 
-    if(isset($password) && isset($confirmedpassword)){
-        if($resultat === ($nb1 + $nb2) && $password === $confirmedpassword){
+    $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword']));
+    if(isset($password) && isset($confirmedpassword) && isset($resultat) && isset($username)){
+
+        if($password === $confirmedpassword && $resultat == $nb1 + $nb2){ 
             $password = password_hash($password, PASSWORD_DEFAULT);
             $message = pwdforget($username, $password);
             if(isset($message)){
                 header("Location: ../vue/pmdpoublie.php?message=" . $message);
+                exit;
+            }else{
+                header("Location: ../vue/pconnexion.php?success");
                 exit;
             }
         }

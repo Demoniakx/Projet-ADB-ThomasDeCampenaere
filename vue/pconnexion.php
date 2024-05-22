@@ -12,6 +12,10 @@
             <div class="top">
                 <div>
                     <h1>Connexion</h1>
+                    <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?> <br>
+                    <?php if(isset($_GET['error'])){ 
+                    ?> <p>Une erreur s'est produite</p><br>
+                    <?php } ?>
                 </div>
                 <div class="form">
                     <form method="POST" action="../controller/userController.php">
@@ -27,6 +31,6 @@
             </div>
 
         </div>
-<?php   }
+<?php   }   
     include('footer.php');
 ?>

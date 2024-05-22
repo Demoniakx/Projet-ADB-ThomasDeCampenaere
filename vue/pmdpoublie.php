@@ -1,8 +1,6 @@
 <?php
     $onglet = 'Mot de passe oublié';
     include('header.php');
-    $_SESSION['nb1'] = rand(1,20);
-    $_SESSION['nb2'] = rand(1,20);
     if(isset($_SESSION['user'])){
         header("Location: paccueil.php");
     }else{
@@ -14,11 +12,21 @@
         <div class="top">
             <div>
                 <h1>Mot de passe oublié</h1>
+                    <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?> <br>
+                    <?php if(isset($_GET['error'])){ 
+                    ?> <p>Une erreur s'est produite</p><br>
+                    <?php } ?>
             </div>
             <div class="form">
                 <form method="post" action="../controller/userController.php">
+                    <?php
+                        $nb1 = rand(0,20);
+                        $nb2 = rand(0,20);
+                    ?>
+                    <input type="hidden" name="nb1" value="<?php echo $nb1?>">
+                    <input type="hidden" name="nb2" value="<?php echo $nb2?>">
                     <label>Résolvez ce calcul :</label></br>
-                    <input class="formulaire" type="text" name="resultat" placeholder="<?php echo $_SESSION['nb1'] . "+" . $_SESSION['nb2'] ?>" required autofocus><br>
+                    <input class="formulaire" type="text" name="resultat" placeholder="<?php echo $nb1 . "+" . $nb2 . " = ?" ?>" required autofocus><br>
                     <label>Username :</label></br>
                     <input class="formulaire" type="text" name="username" required><br>
                     <label>Nouveau mot de passe :</label></br>
