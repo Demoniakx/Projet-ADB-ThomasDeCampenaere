@@ -49,7 +49,7 @@
                             }
                         }else{
                             ?>
-                            <li><a href="pconnexion.php">Espace utilisiteur</a></li>
+                            <li><a href="pconnexion.php">Espace utilisateur</a></li>
                             <?php   
                         }
                     ?>

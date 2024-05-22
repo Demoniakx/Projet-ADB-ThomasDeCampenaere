@@ -12,13 +12,14 @@
         $reponse = $bdd->prepare("SELECT * FROM recipes");
         $reponse->execute();
         while ($recipe['recipe'] = $reponse->fetch()) {
+            $id = $recipe['recipe']['ID'];
         ?>
-        <a href="precette.php?<?php $recipe['recipe']['ID'] ?>">
-            <div class="card">
+        <a href="precette.php?id=<?php echo $id ?>">
+            <div class="card_accueil">
                 <p><?php echo $recipe['recipe']['title']; ?></p>
             </div>
                 <p>
-                    <?php echo $recipe['recipe']['person']; ?>
+                    <?php echo $recipe['recipe']['person']. " Personnes"; ?>
                 </p>
         </a>
     </div>
