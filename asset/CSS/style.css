@@ -130,3 +130,17 @@ header{
 .small{
     padding: 0rem 1rem;
 }
+
+.card_recipe{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 5rem;
+}
+
+.card{
+    background-color: #F2F5FA;
+    border-radius: 30px;
+    border: 1px solid #000000;
+    color: black;
+    padding: 0rem 2rem;
+}

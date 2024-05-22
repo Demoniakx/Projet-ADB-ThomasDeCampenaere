@@ -27,16 +27,6 @@
                             <p>
                                 <?php echo $donnees['email']; ?>
                             </p>
-                            <div class="id_role">
-                                <form class="card_btn" action="../controller/userController.php" method="POST">
-                                    <input type="hidden" value="<?php echo $donnees['user_id']; ?>" name="id">
-                                    <input class="btn_form" type="submit" value="Modifier" name="bModifyuser">
-                                </form>
-                                <form class="card_btn" action="../controller/userController.php" method="POST">
-                                    <input type="hidden" value="<?php echo $donnees['user_id']; ?>" name="id">
-                                    <input class="btn_form" type="submit" name="bDeleteuser" value="Suprimer" />
-                                </form>
-                            </div>
                         </div>
                     <?php
                     }

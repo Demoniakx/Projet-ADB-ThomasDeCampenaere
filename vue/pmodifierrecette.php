@@ -20,13 +20,13 @@
                     <label>Titre :</label></br>
                     <input class="formulaire" type="text" name="title" autofocus required value="<?php if(isset($donnees['recipe']['title'])){ echo $donnees['recipe']['title'];}?>"/><br>
                     <label>Ustensiles :</label></br>
-                    <input class="formulaire small" type="text" name="cookingtools" required value="<?php if(isset($donnees['recipe']['cookingtools'])){ echo $donnees['recipe']['cookingtools'];}?>"/>><br>
+                    <textarea class="formulaire small" type="text" name="cookingtools" required value="<?php if(isset($donnees['recipe']['cookingtools'])){ echo $donnees['recipe']['cookingtools'];}?>"></textarea><br>
                     <label>Ingrédients :</label></br>
-                    <input class="formulaire small" type="text" name="ingredients" required value="<?php if(isset($donnees['recipe']['ingredients'])){ echo $donnees['recipe']['ingredients'];}?>"/>><br>
+                    <textarea class="formulaire small" type="text" name="ingredients" required value="<?php if(isset($donnees['recipe']['ingredients'])){ echo $donnees['recipe']['ingredients'];}?>"></textarea>><br>
                     <label>Nombre de personnes :</label></br>
                     <input class="formulaire" type="int" name="person" required value="<?php if(isset($donnees['recipe']['person'])){ echo $donnees['recipe']['person'];}?>"/>><br>
                     <label>Recette :</label></br>
-                    <input class="formulaire big" type="text" name="recipe" required value="<?php if(isset($donnees['recipe']['recipe'])){ echo $donnees['recipe']['recipe'];}?>"/>><br>
+                    <textarea class="formulaire big" type="text" name="recipe" required value="<?php if(isset($donnees['recipe']['recipe'])){ echo $donnees['recipe']['recipe'];}?>"></textarea><br>
                     <label>Auteur :</label></br>
                     <input class="formulaire" type="text" name="author" required value="<?php if(isset($donnees['recipe']['author'])){ echo $donnees['recipe']['author'];}?>"/>><br>
                     <?php
