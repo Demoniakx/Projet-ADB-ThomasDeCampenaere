@@ -10,13 +10,15 @@
 ?>
 
 <div class="container">
-    <div class="board">
+    <div>
+        <div class="board">
                     <?php
                     //RECUPERATION DE LA CONNEXION A LA BDD
                     global $bdd;
                     //Requête pour récupérer les users en BDD
                     $reponse = $bdd->query('SELECT * FROM users');
                     while ($donnees['user'] = $reponse->fetch()) {
+
                     ?>
                         <div class="">
                             <p>
@@ -26,23 +28,24 @@
                                 <?php echo $donnees['user']['email']; ?>
                             </p>
                             <a href="pmodifyuser.php?id=<?php echo $donnees['user']['id']?>">Modifier</a>
-                            <a href="pdeleteuser.php">X</a>
+                            <a href="pdeleteuser.php?id=<?php echo $donnees['user']['id']?>">X</a>
                         </div>
                     <?php
                     }
                     $reponse->closeCursor(); // Termine le traitement de la requÃªte
                     ?>
+        </div>
     </div>
-    <div class="board">
-    <?php
-        //RECUPERATION DE LA CONNEXION A LA BDD
-        global $bdd;
-        //Requête pour récupérer les recettes en BDD
-        $reponse = $bdd->prepare("SELECT * FROM recipes");
-        $reponse->execute();
-        while ($recipe['recipe'] = $reponse->fetch()) {
-            $id = $recipe['recipe']['ID'];
-        ?>
+    <div>
+        <div class="board">
+            <?php
+            //RECUPERATION DE LA CONNEXION A LA BDD
+            global $bdd;
+            //Requête pour récupérer les recettes en BDD
+            $reponse = $bdd->prepare("SELECT * FROM recipes");
+            $reponse->execute();
+            while ($recipe['recipe'] = $reponse->fetch()) {
+            ?>
             <div class="">
                 <p>
                     <?php echo $recipe['recipe']['title']; ?>
@@ -50,15 +53,17 @@
 
                 <p>
                     <?php echo $recipe['recipe']['person']. " Personnes"; ?>
-                </p>            
+                </p>
+                <a href="pmodifierrecette.php?id=<?php echo $recipe['recipe']['ID'] ?>">Modifier</a>
+                <a href="pdeleterecipe.php?id=<?php echo $recipe['recipe']['ID'] ?>">X</a>            
             </div>
-        <?php
-    }
-    $reponse->closeCursor(); // Termine le traitement de la requête
-    ?>
+            <?php
+            }
+            $reponse->closeCursor(); // Termine le traitement de la requête
+            ?>
+        </div>
     </div>
-
-    </div>
+</div>
 
 <?php
     include('footer.php');

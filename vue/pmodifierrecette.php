@@ -5,6 +5,13 @@
         header("Location: paccueil.php");
         exit;
     }
+    include('../model/dbconnect.php');
+    //RECUPERATION DE LA CONNEXION A LA BDD
+    global $bdd;
+    //Requête pour récupérer les recettes
+    $reponse = $bdd->prepare("SELECT * FROM recipes where id = ".$_GET['id']);
+    $reponse->execute();
+    $donnees['recipe'] = $reponse->fetch();
 ?>
     <div class="container">
         <div>
@@ -24,23 +31,17 @@
                     <label>Titre :</label></br>
                     <input class="formulaire" type="text" name="title" autofocus required value="<?php if(isset($donnees['recipe']['title'])){ echo $donnees['recipe']['title'];}?>"/><br>
                     <label>Ustensiles :</label></br>
-                    <textarea class="formulaire small" type="text" name="cookingtools" required value="<?php if(isset($donnees['recipe']['cookingtools'])){ echo $donnees['recipe']['cookingtools'];}?>"></textarea><br>
+                    <textarea class="formulaire small" type="text" name="cookingtools" required><?php if(isset($donnees['recipe']['cookingtools'])){ echo $donnees['recipe']['cookingtools'];}?></textarea><br>
                     <label>Ingrédients :</label></br>
-                    <textarea class="formulaire small" type="text" name="ingredients" required value="<?php if(isset($donnees['recipe']['ingredients'])){ echo $donnees['recipe']['ingredients'];}?>"></textarea>><br>
+                    <textarea class="formulaire small" type="text" name="ingredients" required><?php if(isset($donnees['recipe']['ingredients'])){ echo $donnees['recipe']['ingredients'];}?></textarea><br>
                     <label>Nombre de personnes :</label></br>
-                    <input class="formulaire" type="int" name="person" required value="<?php if(isset($donnees['recipe']['person'])){ echo $donnees['recipe']['person'];}?>"/>><br>
+                    <input class="formulaire" type="number" name="person" required value="<?php if(isset($donnees['recipe']['person'])){ echo $donnees['recipe']['person'];}?>"/><br>
                     <label>Recette :</label></br>
-                    <textarea class="formulaire big" type="text" name="recipe" required value="<?php if(isset($donnees['recipe']['recipe'])){ echo $donnees['recipe']['recipe'];}?>"></textarea><br>
+                    <textarea class="formulaire big" type="text" name="recipe" required ><?php if(isset($donnees['recipe']['recipe'])){ echo $donnees['recipe']['recipe'];}?></textarea><br>
                     <label>Auteur :</label></br>
-                    <input class="formulaire" type="text" name="author" required value="<?php if(isset($donnees['recipe']['author'])){ echo $donnees['recipe']['author'];}?>"/>><br>
-                    <?php
-                    //On récupère l'id de la recette pour la modification
-                    if(isset($donnees['recipe']['id'])){
-                        ?>
-                        <input type="hidden" value="<?php echo $donnees['recipe']['id']; ?>" name="id">
-                        <?php
-                    }
-                    ?>
+                    <input class="formulaire" type="text" name="author" required value="<?php if(isset($donnees['recipe']['author'])){ echo $donnees['recipe']['author'];}?>"/><br>
+                    <!--On récupère l'id de la recette pour la modification-->
+                    <input type="hidden" value="<?php echo $donnees['recipe']['ID']; ?>" name="id">
                     <input class="button" type="submit" name="bModifyrecipe" value="Modifier"></input>
                 </form>
             </div>

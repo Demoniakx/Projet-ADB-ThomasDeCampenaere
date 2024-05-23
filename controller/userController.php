@@ -122,14 +122,25 @@ if(isset($_POST['bAddrecipe'])){
     }
 
 } else if(isset($_POST['bModifyrecipe'])){
-    $message = Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $author);
+    if(!empty($_POST['title']) && !empty($_POST['cookingtools']) && !empty($_POST['ingredients']) && !empty($_POST['person']) && !empty($_POST['recipe']) && !empty($_POST['author'])){
+        $title = htmlspecialchars(trim($_POST['title']));
+        $cookingtools = htmlspecialchars(trim($_POST['cookingtools']));
+        $ingredients = htmlspecialchars(trim($_POST['ingredients']));
+        $person = htmlspecialchars(trim($_POST['person']));
+        $recipe = htmlspecialchars(trim($_POST['recipe']));
+        $author = htmlspecialchars(trim($_POST['author']));
+        $id = $_POST['id'];
+        //Modification de la recette
+        $message = Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $author, $id);
+    }
+
     //vérification s'il y a un message d'erreur
     if(isset($message)){
     //On transmet le message par l'url avec la redirection
     header("Location: ../vue/pmodifierrecette.php?message=" . $message);
     }
     //On redirige et transmet à l'utilisateur la réussite de la modification de la recette
-    header("Location: ../vue/pmodifierrecette.php?success");
+    header("Location: ../vue/padmin.php?success");
     exit;
 }else if(isset($_POST['bModifypwd'])){
     $nb1 = $_POST['nb1'];
@@ -156,13 +167,12 @@ if(isset($_POST['bAddrecipe'])){
         header("Location: ../vue/pmdpoublie.php?message=" . $error['empty']);}
 }else if(isset($_POST['bModifyuseradmin'])){
     $id = $_POST['id'];
-    $email = htmlspecialchars(trim($_POST['email']));
+    $email = htmlspecialchars(trim($_POST['mail']));
     $lastname = htmlspecialchars(trim($_POST['lastname']));
     $firstname = htmlspecialchars(trim($_POST['firstname']));
-    $password = htmlspecialchars(trim($_POST['password']));
     if(!empty($email) && !empty($lastname) && !empty($firstname)){
         update($id, $email, $lastname, $firstname);
-        header("Location: ../vue/pmodifyuser.php?success");
+        header("Location: ../vue/padmin.php?succes");
         exit;
     }
 }

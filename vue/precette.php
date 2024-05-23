@@ -36,6 +36,7 @@
                     </div>
                     <h2>Recette :</h2>
                     <p> <?php echo nl2br($recipe['recipe']['recipe']); ?></p>
+                    <p>Auteur : <?php echo $recipe['recipe']['author'];  ?></p>
             </div>
             
         </div>

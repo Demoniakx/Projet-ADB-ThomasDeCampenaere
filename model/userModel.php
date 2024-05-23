@@ -141,11 +141,11 @@ function InsertRecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
 }
 
 //Fonction qui permet de modifier une recette pour l'admin
-function Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $author){
+function Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $author,$id){
     //Récupération de la BDD
     global $bdd;
     //On prépare la requête qui permettra de modifier les informations de l'utilisateurs
-    $querysqlupdate = "UPDATE recipe SET title=:title, cookingtools=:cookingtools, ingredients=:ingredients, person=:person, recipe=:recipe, author=:author WHERE id = :id";
+    $querysqlupdate = "UPDATE recipes SET title=:title, cookingtools=:cookingtools, ingredients=:ingredients, person=:person, recipe=:recipe, author=:author WHERE id = :id";
     //Préparation de la requête SQL
     $stmtUserUpdate = $bdd->prepare($querysqlupdate);
     $stmtUserUpdate->bindParam(":title",$title);
@@ -163,10 +163,7 @@ function Modifyrecipe($title, $cookingtools, $ingredients, $person, $recipe, $au
     }
 
     //Si la variable message n'existe pas, tout s'est bien déroulé
-    if(!isset($message)){
-        return true;
-    }
-    return false;
+    if(isset($message)){return $message;}
 }
 
 //Fonction suppression de recette
@@ -208,14 +205,13 @@ function pwdforget($username,$password){
     if(isset($message)){return $message;}
 }
 //Fontion qui permet de supprimer un user
-function Deleteuser($userid){
+function Deleteuser($id){
     //Récupération de la BDD
     global $bdd;
     //Suppression de l'utilisateur
     $querysql = "DELETE FROM users WHERE id= :userid";
     $stmtUser = $bdd->prepare($querysql);
-    $stmtUser->bindParam(":userid",$userid);
-    $stmtUser->execute();
+    $stmtUser->bindParam(":userid",$id);
 
     try{
         $stmtUser->execute();

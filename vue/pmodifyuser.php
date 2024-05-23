@@ -31,9 +31,7 @@
             <input class="formulaire" type="text" name="lastname" required value="<?php if(isset($donnees['user'])){ echo $donnees['user']['lastname'];}?>"/><br>
             <label>Prénom :</label></br>
             <input class="formulaire" type="text" name="firstname" required value="<?php if(isset($donnees['user'])){ echo $donnees['user']['firstname'];}?>"/><br>
-            <label>Mot de passe :</label></br>
-            <input class="formulaire" type="password" name="password" required></br>
-            <input type="hidden" name="id" value="<?php $id ?>">
+            <input type="hidden" name="id" value="<?php echo $id ?>">
             <input type="submit" class="button" name="bModifyuseradmin" value="Modifier"></input>
         </form>
     </div>

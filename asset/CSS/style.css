@@ -29,6 +29,7 @@ section{
     height: 500px;
     position: relative;
     top: -50%;
+    z-index: -1;
 }
 
 .formulaire{
