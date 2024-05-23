@@ -10,7 +10,9 @@
 <div class="top">
     <div>
         <h1>Modifications</h1>
-        <?php if(isset($message)){ echo $message;}  ?> <br>
+        <?php if(isset($message)){ echo $message;}  
+        ?> <br>
+        <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?> <br>
     </div>
     <div class="form">
         <form method="POST" action="../controller/userController.php">

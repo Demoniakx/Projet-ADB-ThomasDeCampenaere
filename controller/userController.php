@@ -77,9 +77,10 @@ elseif(isset($_POST['bModifyuser'])){
             // On démarre une session 
             session_start();
             // On récupère les données de l'utilisateur grâce a la fonction login (qui permet de créer une session avec les données utilisateur)
-            login($username, $password);
+            $message = login($username, $password);
             // On redirige vers l'accueil avec un message de réussite
-            header("Location: ../vue/pmodificationdonneesuser.php?success");
+            $message = "Vos données ont bien été modifiées.";
+            header("Location: ../vue/pmodificationdonneesuser.php?message=". $message);
             exit;
     }
 
