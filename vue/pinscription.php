@@ -1,5 +1,9 @@
 <?php
-    $onglet = 'Inscription';
+    if(isset($_SESSION['user']['role'])){
+        $onglet = "Ajout utilisateur";
+    }else{
+        $onglet = 'Inscription';
+    }
     include('header.php');
     if($_SESSION['user']['role'] == 0){
         header("Location: paccueil.php");

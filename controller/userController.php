@@ -154,5 +154,16 @@ if(isset($_POST['bAddrecipe'])){
     }else{
         $error["empty"] = "Veuillez remplir tous les mots de passe.";
         header("Location: ../vue/pmdpoublie.php?message=" . $error['empty']);}
+}else if(isset($_POST['bModifyuseradmin'])){
+    $id = $_POST['id'];
+    $email = htmlspecialchars(trim($_POST['email']));
+    $lastname = htmlspecialchars(trim($_POST['lastname']));
+    $firstname = htmlspecialchars(trim($_POST['firstname']));
+    $password = htmlspecialchars(trim($_POST['password']));
+    if(!empty($email) && !empty($lastname) && !empty($firstname)){
+        update($id, $email, $lastname, $firstname);
+        header("Location: ../vue/pmodifyuser.php?success");
+        exit;
+    }
 }
 ?>

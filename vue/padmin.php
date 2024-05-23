@@ -16,16 +16,16 @@
                     global $bdd;
                     //Requête pour récupérer les users en BDD
                     $reponse = $bdd->query('SELECT * FROM users');
-                    while ($donnees = $reponse->fetch()) {
+                    while ($donnees['user'] = $reponse->fetch()) {
                     ?>
                         <div class="">
                             <p>
-                                <?php echo $donnees['username']; ?>
+                                <?php echo $donnees['user']['username']; ?>
                             </p>
                             <p>
-                                <?php echo $donnees['email']; ?>
+                                <?php echo $donnees['user']['email']; ?>
                             </p>
-                            <a href="pmodifyuser;php">modifier</a>
+                            <a href="pmodifyuser.php?id=<?php echo $donnees['user']['id']?>">Modifier</a>
                             <a href="pdeleteuser.php">X</a>
                         </div>
                     <?php
