@@ -3,6 +3,7 @@
     include('header.php');
     if(isset($_SESSION['user'])){
         header("Location: paccueil.php");
+        exit;
     }else{
         ?>
         <div class="container">

@@ -7,6 +7,7 @@
     include('header.php');
     if($_SESSION['user']['role'] == 0){
         header("Location: paccueil.php");
+        exit;
     }else{
 ?>
     <div class="container">

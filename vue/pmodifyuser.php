@@ -2,6 +2,10 @@
     $onglet = 'Modifications utilisateur';
     include('header.php');
     include('../model/dbconnect.php');
+    if($_SESSION['user']['role'] === 0){
+            header('Location: paccueil.php');
+            exit;
+    }
     $id = $_GET['id'];
 ?>
 
