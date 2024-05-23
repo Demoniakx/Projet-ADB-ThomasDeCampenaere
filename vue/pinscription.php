@@ -53,7 +53,7 @@
                     <?php
                     if($_SESSION['user']['role']){
                         ?>
-                        <input type="submit" name="bAdduser" value="Ajouter"></input>
+                        <input class="button" type="submit" name="bAdduser" value="Ajouter"></input>
                     <?php   }
                     ?>
                     <input class="button" type="submit" name="bInscription" value="Inscription"></input>
