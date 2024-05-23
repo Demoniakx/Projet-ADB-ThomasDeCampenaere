@@ -1,5 +1,5 @@
 <?php
-    $onglet = 'Inscription';
+    $onglet = 'Ajout utilisateur';
     include('header.php');
     if($_SESSION['user']['role'] == 0){
         header("Location: paccueil.php");
@@ -11,7 +11,7 @@
         </div>
         <div class="top">
             <div>
-                <h1>Inscription</h1>
+                <h1>Ajout Utilisateur</h1>
                 <!-- Si un message d'erreur ou de confirmation est envoyé par le controller -->
                 <?php if(isset($_GET['message'])){ echo $_GET['message'];}  ?> <br>
                 <?php if(isset($_GET['error'])){ 
@@ -33,8 +33,7 @@
                     <label>Confirmez le mot de passe :</label></br>
                     <input class="formulaire" type="password" name="pwdconfirmed" required><br>
                     <a href="pconnexion.php">Déjà inscrit ?</a><br>
-                    <input class="button" type="submit" name="bInscription" value="Inscription"></input>
-
+                    <input class="button" type="submit" name="bAdduser" value="Ajouter"></input>
                 </form>
             </div>
         </div>

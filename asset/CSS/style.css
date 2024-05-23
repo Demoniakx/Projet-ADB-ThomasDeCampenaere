@@ -171,3 +171,57 @@ header{
     height: 8rem;
     width: 30rem;
 }
+
+.linkadmin{
+    text-decoration: none;
+    color: black;
+}
+
+.gridadmin{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 5rem;
+}
+
+.board{
+    background-color: #F2F5FA;
+    border-radius: 30px;
+    border: 1px solid #000000;
+    color: black;
+    padding: 0rem 2rem;
+    height: 8rem;
+    width: 30rem;
+    border-spacing: 1rem;
+}
+
+.center{
+    text-align: center;
+}
+
+.buttonadmin{
+    border-radius: 60px;
+    border: 1px solid #909595;
+    background: rgba(227, 6, 19, 80%);
+    text-transform: uppercase;
+    color: #F2F5FA;
+    display: inline-block;
+    width: auto;
+    text-align: center;
+    height: 2rem;
+}
+
+.buttonadmin:hover{
+    background: #D9D9D9;
+    color: rgba(227, 6, 19, 80%);
+    transition: ease 0.5s;
+}
+
+.board tr td{
+    width: fit-content;
+}
+
+.linkflex{
+    display: flex;
+    justify-content: space-between;
+    gap:0.5rem; 
+}

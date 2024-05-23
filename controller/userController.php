@@ -3,7 +3,7 @@
     require('../model/userModel.php');
 
 //si le bouton inscription a été envoyé.
-if(isset($_POST['bInscription'])){
+if(isset($_POST['bInscription']) || isset($_POST['bAdduser'])){
     $email = htmlspecialchars(trim($_POST['email']));
     $username = htmlspecialchars(trim($_POST['username']));
     $lastname = htmlspecialchars(trim($_POST['lastname']));
@@ -175,5 +175,7 @@ if(isset($_POST['bAddrecipe'])){
         header("Location: ../vue/padmin.php?succes");
         exit;
     }
+}else if(isset($_POST['bAdduserlien'])){
+    header("Location: ../vue/padduser.php");
 }
 ?>

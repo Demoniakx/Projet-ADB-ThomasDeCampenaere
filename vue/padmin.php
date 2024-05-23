@@ -8,62 +8,83 @@
             header('Location: index.php');
     }
 ?>
-
-<div class="container">
+<div class="container gridadmin">
     <div>
-        <div class="board">
+        <div>
+            <h2 class="center">Utilisateurs</h2>
+                <table class="board">
+                    <thead><tr><th>Utilisateurs</th><th>Email</th><th>Actions</th></tr></thead>
                     <?php
                     //RECUPERATION DE LA CONNEXION A LA BDD
                     global $bdd;
                     //Requête pour récupérer les users en BDD
-                    $reponse = $bdd->query('SELECT * FROM users');
+                    $reponse = $bdd->prepare("SELECT * FROM users");
+                    $reponse->execute();
                     while ($donnees['user'] = $reponse->fetch()) {
-
+                    //Génération du tableau des users
                     ?>
-                        <div class="">
-                            <p>
-                                <?php echo $donnees['user']['username']; ?>
-                            </p>
-                            <p>
-                                <?php echo $donnees['user']['email']; ?>
-                            </p>
-                            <a href="pmodifyuser.php?id=<?php echo $donnees['user']['id']?>">Modifier</a>
-                            <a href="pdeleteuser.php?id=<?php echo $donnees['user']['id']?>">X</a>
-                        </div>
+                    <tr>
+                        <td>
+                            <?php echo $donnees['user']['username']; ?>
+                        </td>
+                        <td>
+                            <?php echo $donnees['user']['email']; ?>
+                        </td>
+                        <td class="linkflex">
+                            <a class="linkadmin" href="pmodifyuser.php?id=<?php echo $donnees['user']['id']?>">Modifier</a>
+                            <a class="linkadmin" href="pdeleteuser.php?id=<?php echo $donnees['user']['id']?>">X</a>
+                        </td>
+                    </tr>
                     <?php
                     }
-                    $reponse->closeCursor(); // Termine le traitement de la requÃªte
+                    $reponse->closeCursor(); // Termine le traitement de la requête
                     ?>
-        </div>
-    </div>
-    <div>
-        <div class="board">
-            <?php
-            //RECUPERATION DE LA CONNEXION A LA BDD
-            global $bdd;
-            //Requête pour récupérer les recettes en BDD
-            $reponse = $bdd->prepare("SELECT * FROM recipes");
-            $reponse->execute();
-            while ($recipe['recipe'] = $reponse->fetch()) {
-            ?>
-            <div class="">
-                <p>
-                    <?php echo $recipe['recipe']['title']; ?>
-                </p>
+                </table>                    
+                    <form class="center" method="POST" action="../controller/userController.php">
+                        <input class="buttonadmin" type="submit" name="bAdduserlien" value="Ajouter un utilisateur">
+                    </form>
 
-                <p>
-                    <?php echo $recipe['recipe']['person']. " Personnes"; ?>
-                </p>
-                <a href="pmodifierrecette.php?id=<?php echo $recipe['recipe']['ID'] ?>">Modifier</a>
-                <a href="pdeleterecipe.php?id=<?php echo $recipe['recipe']['ID'] ?>">X</a>            
-            </div>
-            <?php
-            }
-            $reponse->closeCursor(); // Termine le traitement de la requête
-            ?>
+        </div>
+    </div> 
+    <div>
+        <div>
+            <h2 class="center">Recettes</h2>
+            <table class="board">
+                <thead><tr><th>Recettes</th><th>Auteurs</th><th>Actions</th></tr></thead>
+                <?php
+                //RECUPERATION DE LA CONNEXION A LA BDD
+                global $bdd;
+                //Requête pour récupérer les recettes en BDD
+                $reponse = $bdd->prepare("SELECT * FROM recipes");
+                $reponse->execute();
+                while ($recipe['recipe'] = $reponse->fetch()) {
+                //Génération du tableau des recettes
+                ?>
+
+                <tr>
+                    <td>
+                        <?php echo $recipe['recipe']['title']; ?>
+                    </td>
+
+                    <td>
+                        <?php echo $recipe['recipe']['author']; ?>
+                    </td>
+
+                    <td>
+                        <a class="linkadmin" href="pmodifierrecette.php?id=<?php echo $recipe['recipe']['ID'] ?>">Modifier</a>
+                        <a class="linkadmin" href="pdeleterecipe.php?id=<?php echo $recipe['recipe']['ID'] ?>">X</a> 
+                    </td>
+
+                </tr>
+                <?php
+                }
+                $reponse->closeCursor(); // Termine le traitement de la requête
+                ?>
+            </table>
         </div>
     </div>
 </div>
+
 
 <?php
     include('footer.php');
