@@ -4,8 +4,8 @@
     include('../model/dbconnect.php');
     if($_SESSION['user']['role'] === 0){
             header('Location: paccueil.php');
-    }else if(!isset($_SESSION['user'])){
-            header('Location: index.php');
+    }else if(!($_SESSION)){
+            header('Location: ./paccueil.php');
     }
 ?>
 <div class="container gridadmin">

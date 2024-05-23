@@ -186,13 +186,14 @@ function Deleterecipe($recipeid){
 }
 
 //Function qui gérera le calcul et la modification du mot de passe si le user a oublié son mot de passe
-function pwdforget($username,$password){
+function pwdforget($username,$email,$password){
     //Récupération de la BDD
     global $bdd;
     //On récupère la requête pour modifier le mot de passe ou le nom d'utilisateur est le même en BDD
-    $querysql = "UPDATE users SET password = :password WHERE username = :username";
+    $querysql = "UPDATE users SET password = :password WHERE username = :username AND email= :email";
     $stmtUser = $bdd->prepare($querysql);
     $stmtUser->bindParam(":username",$username);
+    $stmtUser->bindParam(":email",$email);
     $stmtUser->bindParam(":password",$password);
 
     try{
@@ -221,4 +222,24 @@ function Deleteuser($id){
 
     if(isset($message)){return $message;}
 }
-?>
+
+function email(){
+    //Récupération de la BDD
+    global $bdd;
+    //On récupère la requête pour modifier le mot de passe ou le nom d'utilisateur est le même en BDD
+    $querysql = "SELECT email FROM users";
+    $stmtMail = $bdd->prepare($querysql);
+
+    try{
+        $stmtMail->execute();
+    }catch(PDOException $e){
+        $message = "Erreur lors de la modification du mot de passe";
+    }
+
+    $mail = $stmtMail->fetchAll();
+    //Si la variable message n'existe pas, tout s'est bien déroulé
+    if(isset($message)){return $message;}   
+    
+    return $mail;
+}
+?>  

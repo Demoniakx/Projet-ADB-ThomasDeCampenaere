@@ -14,7 +14,14 @@ if(isset($_POST['bInscription']) || isset($_POST['bAdduser'])){
 
     //si les données récupérées ne sont pas vides
     if (!empty($email) && !empty($username) && !empty($lastname) && !empty($firstname) && !empty($password) && !empty($confirmedpassword))   {    
-
+        $emailBDD = email();
+        for($i = 0; $i < count($emailBDD); $i++){
+            if($email == $emailBDD[$i]['email']){
+                $error["email"] = "L'adresse email est déjà utilisée.";
+                header("Location: ../vue/pinscription.php?message=" . $error["email"]);
+                exit;
+            }
+        }
         //si les mots de passes correspondent
         if($password === $confirmedpassword){
             if(strlen($password) < 8){
@@ -26,7 +33,7 @@ if(isset($_POST['bInscription']) || isset($_POST['bAdduser'])){
             //si le mot de passe de passe n'est pas vide lors de l'inscription et que l'adresse mail a un format valide
             if(!preg_match($regexemail, $email)){
                 //Si l'adresse mail n'est pas valide
-                $error["mail"] = "L'adresse email '$email' n'est pas valide.";
+                $error["mail"] = "L'adresse email n'est pas valide.";
                 //On transmet le message par l'url avec la redirection
                 header("Location: ../vue/pinscription.php?message=" . $error["mail"]);
                 exit;
@@ -147,13 +154,23 @@ if(isset($_POST['bAddrecipe'])){
     $nb2 = $_POST['nb2'];
     $resultat = htmlspecialchars(trim($_POST['resultat']));
     $username = htmlspecialchars(trim($_POST['username']));
+    $email = htmlspecialchars(trim($_POST['email']));
     $password = htmlspecialchars(trim($_POST['newpassword']));
     $confirmedpassword = htmlspecialchars(trim($_POST['newconfirmedpassword']));
-    if(isset($password) && isset($confirmedpassword) && isset($resultat) && isset($username)){
+    $regexemail = "/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/";
 
+    if(isset($password) && isset($confirmedpassword) && isset($resultat) && isset($username) && isset($email)){
+        //Vérification si le mail est valide
+        if(!preg_match($regexemail, $email)){
+            //Si l'adresse mail n'est pas valide
+            $error["mail"] = "L'adresse email n'est pas valide.";
+            //On transmet le message par l'url avec la redirection
+            header("Location: ../vue/pmdpoublie.php?message=" . $error["mail"]);
+            exit;
+        }
         if($password === $confirmedpassword && $resultat == $nb1 + $nb2){ 
             $password = password_hash($password, PASSWORD_DEFAULT);
-            $message = pwdforget($username, $password);
+            $message = pwdforget($username, $email, $password);
             if(isset($message)){
                 header("Location: ../vue/pmdpoublie.php?message=" . $message);
                 exit;

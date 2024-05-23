@@ -27,8 +27,10 @@
                     <input type="hidden" name="nb2" value="<?php echo $nb2?>">
                     <label>Résolvez ce calcul :</label></br>
                     <input class="formulaire" type="text" name="resultat" placeholder="<?php echo $nb1 . "+" . $nb2 . " = ?" ?>" required autofocus><br>
-                    <label>Username :</label></br>
+                    <label>Username : (Celui de votre compte)</label></br>
                     <input class="formulaire" type="text" name="username" required><br>
+                    <label>Email : (Celle de votre compte)</label></br>
+                    <input class="formulaire" type="email" name="username" required><br>
                     <label>Nouveau mot de passe :</label></br>
                     <input class="formulaire" type="password" name="newpassword" required><br>
                     <label>Confirmez le mot de passe :</label></br>
