@@ -30,7 +30,7 @@
                     <label>Username : (Celui de votre compte)</label></br>
                     <input class="formulaire" type="text" name="username" required><br>
                     <label>Email : (Celle de votre compte)</label></br>
-                    <input class="formulaire" type="email" name="username" required><br>
+                    <input class="formulaire" type="email" name="email" required><br>
                     <label>Nouveau mot de passe :</label></br>
                     <input class="formulaire" type="password" name="newpassword" required><br>
                     <label>Confirmez le mot de passe :</label></br>

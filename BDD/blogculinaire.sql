@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 23 mai 2024 à 13:05
+-- Généré le : jeu. 23 mai 2024 à 20:18
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.3.0
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `recipes` (
 
 INSERT INTO `recipes` (`ID`, `title`, `cookingtools`, `ingredients`, `person`, `recipe`, `author`, `date_create`, `user_id`) VALUES
 (5, 'couscous merguez poulet', 'aucun', 'semoul\r\npoulet\r\nmerguez\r\npoids chihches', 6, 'dslqjdks\r\nqdsq\r\nd\r\nsq\r\nd\r\nqs\r\nd\r\nqs\r\nd\r\nsq\r\nd\r\nqs\r\nd\r\nfbvd\r\ngsf\r\nsdfsd\r\nfsd\r\nf\r\nsdf\r\nsd\r\nf\r\nsd', 'Demoniakx', '2024-05-22', 5),
-(6, 'Tajine', 'cuillères\r\ntajine\r\npoêle\r\ncasseroles', 'semoule\r\nmenthe\r\npoulet\r\npoivrons', 6, 'sdsd\r\nsdqs\r\ndsqd\r\nsq\r\ndqs\r\nd\r\nqsd\r\nqs\r\nd\r\nqs\r\nd\r\nq\r\nd\r\nq\r\nd\r\nq\r\nd\r\nqsdqdq\r\n\r\nqsd', 'Demoniakx', '2024-05-22', 5);
+(6, 'Tajine a la menthe', 'cuillères\r\ntajine\r\npoêle\r\ncasseroles', 'semoule\r\nmenthe\r\npoulet\r\npoivrons', 6, 'sdsd\r\nsdqs\r\ndsqd\r\nsq\r\ndqs\r\nd\r\nqsd\r\nqs\r\nd\r\nqs\r\nd\r\nq\r\nd\r\nq\r\nd\r\nq\r\nd\r\nqsdqdq\r\n\r\nqsd', 'Demoniakx', '2024-05-22', 5);
 
 -- --------------------------------------------------------
 
@@ -67,17 +67,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` tinyint(1) NOT NULL,
   `date_create` timestamp NOT NULL,
   `date_log` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `lastname`, `firstname`, `password`, `role`, `date_create`, `date_log`) VALUES
-(5, 'thomasdecampenaere@gmail.com', 'Demoniakx', 'De Campenaere', 'Thomas', '$2y$10$wpfGSfxKiWYghlN2qsz1kO16dVeWktJFCFn3v5QcyXhQP8k.ROmyu', 1, '2021-05-23 22:00:00', '2024-05-23 14:36:29'),
-(7, 'Yvesjacques@hotmail.com', 'Jacques', 'Yves', 'Jacques', '$2y$10$W54XXf4vRU7qiSpK3Bor2O5VOgXcfjTInHn0sQGPAhK1kPXBtsaGa', 0, '2024-05-22 07:30:19', '2024-05-22 11:30:38'),
-(8, 'guillaume@gmail.com', 'Guillaume', 'jaioublié', 'Guillaume', '$2y$10$r8r/JkNm4j7wfIDbnii/5.3iRL0I1L5pFy5BXtXGoCPHcdI443UWq', 0, '2024-05-22 08:42:18', '2024-05-23 00:29:45');
+(5, 'thomasdecampenaere@gmail.com', 'Demoniakx', 'De Campenaere', 'Thomas', '$2y$10$wpfGSfxKiWYghlN2qsz1kO16dVeWktJFCFn3v5QcyXhQP8k.ROmyu', 1, '2021-05-23 22:00:00', '2024-05-23 21:10:28'),
+(8, 'guillaume@gmail.com', 'Guillaume', 'Jesaisplus', 'Guillaume', '$2y$10$r8r/JkNm4j7wfIDbnii/5.3iRL0I1L5pFy5BXtXGoCPHcdI443UWq', 0, '2024-05-22 08:42:18', '2024-05-23 21:10:12'),
+(15, 'medhi@hotmail.com', 'Medhi', 'Korichi', 'Medhi', '$2y$10$TWQhJ1vJMBLjWHA3bLjScOva7f5BURoZLu3.fdiERDQb2ZhDx49Wm', 0, '2024-05-23 16:38:46', '0000-00-00 00:00:00');
 
 --
 -- Contraintes pour les tables déchargées
