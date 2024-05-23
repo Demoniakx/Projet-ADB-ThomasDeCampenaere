@@ -12,7 +12,7 @@
     <div>
         <div>
             <h2 class="center">Utilisateurs</h2>
-                <table class="board">
+                <table class="center board">
                     <thead><tr><th>Utilisateurs</th><th>Email</th><th>Actions</th></tr></thead>
                     <?php
                     //RECUPERATION DE LA CONNEXION A LA BDD
@@ -24,12 +24,19 @@
                     //Génération du tableau des users
                     ?>
                     <tr>
+
                         <td>
-                            <?php echo $donnees['user']['username']; ?>
+                            <div>
+                                 <?php echo $donnees['user']['username']; ?>
+                            </div>
                         </td>
+            
                         <td>
-                            <?php echo $donnees['user']['email']; ?>
+                            <div class="emailadmin">
+                                <?php echo $donnees['user']['email']; ?>
+                            </div>
                         </td>
+
                         <td class="linkflex">
                             <a class="linkadmin" href="pmodifyuser.php?id=<?php echo $donnees['user']['id']?>">Modifier</a>
                             <a class="linkadmin" href="pdeleteuser.php?id=<?php echo $donnees['user']['id']?>">X</a>
@@ -49,7 +56,7 @@
     <div>
         <div>
             <h2 class="center">Recettes</h2>
-            <table class="board">
+            <table class="board center">
                 <thead><tr><th>Recettes</th><th>Auteurs</th><th>Actions</th></tr></thead>
                 <?php
                 //RECUPERATION DE LA CONNEXION A LA BDD
@@ -70,7 +77,7 @@
                         <?php echo $recipe['recipe']['author']; ?>
                     </td>
 
-                    <td>
+                    <td class="linkflex">
                         <a class="linkadmin" href="pmodifierrecette.php?id=<?php echo $recipe['recipe']['ID'] ?>">Modifier</a>
                         <a class="linkadmin" href="pdeleterecipe.php?id=<?php echo $recipe['recipe']['ID'] ?>">X</a> 
                     </td>

@@ -1,7 +1,7 @@
 <?php
     $onglet = 'Inscription';
     include('header.php');
-    if($_SESSION['user']['role'] == 0){
+    if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 0){
         header("Location: paccueil.php");
     }else{
 ?>

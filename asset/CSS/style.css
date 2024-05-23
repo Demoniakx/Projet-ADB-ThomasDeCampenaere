@@ -208,6 +208,7 @@ header{
     width: auto;
     text-align: center;
     height: 2rem;
+    margin-top: 1rem;
 }
 
 .buttonadmin:hover{

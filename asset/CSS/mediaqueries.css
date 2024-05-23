@@ -1,0 +1,49 @@
+@media screen and (max-width: 500px){
+.gridaccueil{
+    display: grid;
+    grid-template-columns: auto;
+
+}
+
+.card_accueil{
+    width: 20rem;
+}
+
+.imgheader{
+    display: none;
+}
+
+.liste{
+    padding: 0.5rem;
+}
+
+.top{
+    left:7%;
+}
+
+.image{
+    width: 400px;
+    top: -30%;
+}
+
+.gridadmin{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: space-between;
+    margin: 2.3rem;
+    width: 100vw;
+}
+
+.board{
+    width: 350px;
+}
+
+.board{
+    table-layout:fixed;
+}
+
+.emailadmin{
+    word-wrap: break-word;
+}
+
+}
