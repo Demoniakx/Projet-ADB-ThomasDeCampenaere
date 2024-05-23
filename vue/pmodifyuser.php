@@ -7,6 +7,11 @@
             exit;
     }
     $id = $_GET['id'];
+    //RECUPERATION DE LA CONNEXION A LA BDD
+    global $bdd;
+    //Requête pour récupérer les users en BDD
+    $reponse = $bdd->query('SELECT * FROM users WHERE id = '.$id);
+    $donnees['user'] = $reponse->fetch()
 ?>
 
 <div class="container">
@@ -21,11 +26,11 @@
     <div class="form">
         <form method="POST" action="../controller/userController.php">
             <label>Email :</label></br>
-            <input class="formulaire" type="email" name="mail" required autofocus value="<?php if(isset($_SESSION['user'])){ echo $_SESSION['user']['email'];}?>"/><br>
+            <input class="formulaire" type="email" name="mail" required autofocus value="<?php if(isset($donnees['user'])){ echo $donnees['user']['email'];}?>"/><br>
             <label>Nom :</label></br>
-            <input class="formulaire" type="text" name="lastname" required value="<?php if(isset($_SESSION['user'])){ echo $_SESSION['user']['lastname'];}?>"/><br>
+            <input class="formulaire" type="text" name="lastname" required value="<?php if(isset($donnees['user'])){ echo $donnees['user']['lastname'];}?>"/><br>
             <label>Prénom :</label></br>
-            <input class="formulaire" type="text" name="firstname" required value="<?php if(isset($_SESSION['user'])){ echo $_SESSION['user']['firstname'];}?>"/><br>
+            <input class="formulaire" type="text" name="firstname" required value="<?php if(isset($donnees['user'])){ echo $donnees['user']['firstname'];}?>"/><br>
             <label>Mot de passe :</label></br>
             <input class="formulaire" type="password" name="password" required></br>
             <input type="hidden" name="id" value="<?php $id ?>">
