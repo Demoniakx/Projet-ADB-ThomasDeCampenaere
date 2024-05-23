@@ -69,6 +69,8 @@ function login($username,$password){
             $message = "Erreur lors de la mise a jour de la date de connection";
         }
         if(isset($message)){return $message;}   
+    }else{
+        $message = "Le mot de passe est incorrect";
     }
 }
 
