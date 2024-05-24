@@ -71,7 +71,7 @@ elseif(isset($_POST['bModifyuser'])){
     $lastname = htmlspecialchars(trim($_POST['lastname']));
     $firstname = htmlspecialchars(trim($_POST['firstname']));
     if(!empty($email) && !empty($lastname) && !empty($firstname)){
-        update($id, $email, $lastname, $firstname);
+            update($id, $email, $lastname, $firstname);
             // On détruit l'ancienne session
             session_destroy();
             // On démarre une session 
