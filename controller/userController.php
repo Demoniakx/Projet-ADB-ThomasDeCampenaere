@@ -170,6 +170,11 @@ if(isset($_POST['bAddrecipe'])){
             exit;
         }
         if($password === $confirmedpassword && $resultat == $nb1 + $nb2){ 
+            if(strlen($password) < 8){
+                $error["8"] = "Le mot de passe doit contenir au moins 8 caractères.";
+                header("Location: ../vue/pmdpoublie.php?message=" . $error["8"]);
+                exit;
+            }
             $password = password_hash($password, PASSWORD_DEFAULT);
             $message = pwdforget($username, $email, $password);
             if(isset($message)){
