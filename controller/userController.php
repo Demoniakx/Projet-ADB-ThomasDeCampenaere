@@ -176,9 +176,22 @@ if(isset($_POST['bAddrecipe'])){
                 header("Location: ../vue/pmdpoublie.php?message=" . $message);
                 exit;
             }else{
-                header("Location: ../vue/pconnexion.php?success");
+                $message = "Votre mot de passe a bien été modifié.";
+                header("Location: ../vue/pconnexion.php?message=" . $message);
                 exit;
             }
+            return $message;
+        }else{
+            if($resultat != $nb1 + $nb2){
+                $message = "Le résultat du calcul est faux.";
+                header("Location: ../vue/pmdpoublie.php?message=" . $message);
+                exit;
+            }else{
+                $message = "Les mots de passes ne correspondent pas.";
+                header("Location: ../vue/pmdpoublie.php?message=" . $message);
+                exit;
+            }
+
         }
     }else{
         $error["empty"] = "Veuillez remplir tous les mots de passe.";
